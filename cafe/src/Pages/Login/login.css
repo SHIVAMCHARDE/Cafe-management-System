@@ -1,0 +1,34 @@
+.Login{
+    padding-top: 34%;
+    padding-left: 10%;
+    font-family: 'Mukta', sans-serif;
+}
+.Login_Box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: -1px;
+   
+}
+.Login_text{
+    margin-bottom: 9%;
+    border-radius:7px ;
+    border: 1px solid rgba(0.35, 0.35, 0.35, 1.0);
+    width: 90%;
+    height: 30px;
+
+}
+::-webkit-input-placeholder { /* Edge */
+    color: 585858;}
+
+.btn-log{
+    background-color: #A5A6F6;
+    width: 91%;
+    height: 35px;
+    margin-left: 15px;
+    padding: 1%;
+    border: none;
+    font-family: 'Mukta', sans-serif;
+   color: #FFFFFF;
+}
