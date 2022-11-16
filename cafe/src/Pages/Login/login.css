@@ -1,3 +1,9 @@
+.logo_img{
+    width: 20px;
+}
+
+
+
 .Login{
     padding-top: 34%;
     padding-left: 10%;
@@ -11,13 +17,21 @@
     margin-top: -1px;
    
 }
-.Login_text{
-    margin-bottom: 9%;
+.Login_text1{
+    margin-bottom: 4%;
     border-radius:7px ;
     border: 1px solid rgba(0.35, 0.35, 0.35, 1.0);
     width: 90%;
     height: 30px;
-
+    padding: 2%;
+}
+.Login_text2{
+    /* margin-bottom: 9%; */
+    border-radius:7px ;
+    border: 1px solid rgba(0.35, 0.35, 0.35, 1.0);
+    width: 90%;
+    height: 30px;
+    padding: 2%;
 }
 ::-webkit-input-placeholder { /* Edge */
     color: 585858;}
@@ -25,10 +39,25 @@
 .btn-log{
     background-color: #A5A6F6;
     width: 91%;
-    height: 35px;
+    height: 48px;
     margin-left: 15px;
-    padding: 1%;
+    padding: 2%;
     border: none;
     font-family: 'Mukta', sans-serif;
-   color: #FFFFFF;
+    color: #FFFFFF;
+    margin-top: 21px;
+    border-radius: 7px;
+
+}
+
+
+
+#forgot_pass{
+    margin-top: 3%;
+    color: #CA706A;
+    font-size: smaller;
+}
+.forgot_password{
+    margin-left: 238px;
+    height: 20px;
 }

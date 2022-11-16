@@ -1,0 +1,14 @@
+.Register{
+    padding-top: 34%;
+    padding-left: 10%;
+    font-family: 'Mukta', sans-serif;
+}
+.terms_statement{
+    font-size: small;
+}
+.terms_condition{
+    margin-left: 8px;
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: nowrap;
+}
