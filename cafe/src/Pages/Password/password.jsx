@@ -28,6 +28,7 @@ export default function password() {
   <div className="btn-login">
       <button type='submit'className='btn-log'><strong>REGISTER</strong> </button>
   </div>
+  
   </section>
   )
 }

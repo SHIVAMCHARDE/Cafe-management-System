@@ -4,6 +4,7 @@ import Login from './Pages/Login/login';
 import Registraction from './Pages/Registration/registraction';
 import OTP from './Pages/OTP/otp';
 import Password from './Pages/Password/password';
+import Verify from './Pages/Verify/verify';
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
  {/* <Login/> */}
  {/* <Registraction/> */}
  {/*<OTP/>*/}
- <Password/>
+ {/* <Password/> */}
+ <Verify/>
  </>
   );
 }
