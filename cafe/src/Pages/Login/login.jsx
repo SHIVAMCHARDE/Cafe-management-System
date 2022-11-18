@@ -1,11 +1,12 @@
 import React from 'react'
 import '../Login/login.css'
+import backIcon from '../../Assets/logo_btn.png'
 
 export default function login() {
   return (
     <section>
       <div className="frame">
-      <img className='logo_img' src="cafe/src/Assets/logo_btn.pngimg " />
+      <img className='logo_img' src={backIcon} />
       </div>
     <div className='Login'>
         <h1>Login</h1>

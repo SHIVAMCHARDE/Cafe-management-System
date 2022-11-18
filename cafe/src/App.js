@@ -11,10 +11,10 @@ function App() {
     <>
    
  {/* <Login/> */}
- {/* <Registraction/> */}
- {/*<OTP/>*/}
+ <Registraction/>
+ {/* <OTP/> */}
  {/* <Password/> */}
- <Verify/>
+ {/* <Verify/> */}
  </>
   );
 }
