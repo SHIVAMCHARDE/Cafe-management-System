@@ -1,17 +1,18 @@
 const router = require("express").Router()
 const User = require("../Module/User")
 const CryptoJS = require("crypto-js")
+const crypto = require('crypto') //For Hashing
 const dotenv = require("dotenv")
 dotenv.config()
 const jwt = require('jsonwebtoken')
-let refreshTokens = []
+var nodemailer = require('nodemailer');
 
 
 // const accountSid = process.env.ACCOUNT_SID
 // const authToken = process.env.AUTH_TOKEN
 // const client = require('twilio')(accountSid, authToken);
 
-// const JWT_AUTH_TOKEN = process.env.JWT_AUTH_TOKEN
+const JWT_AUTH_TOKEN = process.env.JWT_AUTH_TOKEN
 // const JWT_REFRESH_TOKEN = process.env.JWT_REFRESH_TOKEN
 // const crypto = require('crypto') //For Hashing
 // const { json } = require("express")
@@ -19,34 +20,57 @@ let refreshTokens = []
 // const smsKey = process.env.SMS_SECRET_KEY
 
 
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'bhaveshanandpara12@gmail.com',
+        pass: 'mbopuokvzssshhta'
+    }
+});
+
+
+
+
 router.post('/register', async (req, res) => {
 
 
     //declaring credentials
     const fullName = req.body.name
-    const phoneNo = req.body.phoneNo
     const email = req.body.email
-    const password = req.body.password
-    const confirmPassword = req.body.confirmPassword
 
-    if (password === confirmPassword) {
-        try {
-            const newUser = new User({
-                userName: fullName,
-                phoneNo: phoneNo,
-                email_id: email,
-                userPassword: password
-            })
+    const OTP = Math.floor(Math.random() * 1000000)  //6 Digit OTP
+    const timeLimit = 2 * 60 * 1000 // 2mins in milliseconds
+    const expires = Date.now() + timeLimit
 
-            const user = await newUser.save()
-            res.status(201).json("user Created")
+    const data = `${email}.${OTP}.${expires}` //Hash Data for JWT
+    const hash = crypto.createHmac('sha256', process.env.SECRET_KEY).update(data).digest('hex') //Hashing of Data
 
-        } catch (err) {
-            console.log(err);
-            res.status(401).json(err)
-        }
-    } else {
-        res.status(401).json("Passwords Don't Match")
+    const fullHash = `${hash}.${expires}`
+
+    var mailOptions = {
+        from: 'bhaveshanandpara12@gmail.com',
+        to: email,
+        subject: 'OTP for Verification at Cafe Managment System',
+        text: `your OTP is ${OTP}`
+    };
+
+    try {
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+                res.send('error') // if error occurs send error as response to client
+            }
+            else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+
+        res.json({ msg: "OTP Send Successfully" , OTP ,fullHash })
+
+    } catch (e) {
+        console.log(e);
+        res.json("Error Occured")
     }
 
 })
@@ -57,26 +81,28 @@ router.post('/login', async (req, res) => {
     const email = req.body.email
     const password = req.body.password
 
+    console.log(email);
+
     try {
         const user = await User.findOne({ email })//Find User in Database by PhoneNo 
         try {
 
-            var bytes = CryptoJS.AES.decrypt(user.user_password, process.env.SECRET_KEY); //Decrypt the Encrypted Password
+            var bytes = CryptoJS.AES.decrypt(user.userPassword, process.env.SECRET_KEY); //Decrypt the Encrypted Password
             var originalPass = bytes.toString(CryptoJS.enc.Utf8); //Original Password
 
             originalPass !== password &&
                 res.status(401).json("Invalid Password")
 
         } catch (err) {
-            res.json("Invalid Mobile Number")
+            res.json("Invalid Email")
         }
 
         const OTP = Math.floor(Math.random() * 1000000)  //6 Digit OTP
         const timeLimit = 2 * 60 * 1000 // 2mins in milliseconds
         const expires = Date.now() + timeLimit
 
-        const data = `${phoneNo}.${OTP}.${expires}` //Hash Data for JWT
-        const hash = crypto.createHmac('sha256', smsKey).update(data).digest('hex') //Hashing of Data
+        const data = `${email}.${OTP}.${expires}` //Hash Data for JWT
+        const hash = crypto.createHmac('sha256', process.env.SECRET_KEY).update(data).digest('hex') //Hashing of Data
 
         const fullHash = `${hash}.${expires}` //hash with Expiry
 
@@ -90,7 +116,7 @@ router.post('/login', async (req, res) => {
         //     console.log(err)
         // })
 
-        res.json({ phoneNo, hash: fullHash, password, OTP })
+        res.json({ email, hash: fullHash, password, OTP })
     } catch (err) {
         console.log(err)
     }
@@ -101,7 +127,7 @@ router.post('/verifyOTP', async (req, res) => {
 
     try {
 
-        const phoneNo = req.body.phoneNo
+        const email = req.body.email
         const password = req.body.password
         const hash = req.body.hash
         const OTP = req.body.OTP
@@ -113,14 +139,12 @@ router.post('/verifyOTP', async (req, res) => {
             return res.status(504).send({ msg: ' TimeOut' })  //IF Expired after 2 min
         }
 
-        const data = `${phoneNo}.${OTP}.${expires}` //Hash for JWT
+        const data = `${email}.${OTP}.${expires}` //Hash for JWT
 
-        const newCalculatedHash = crypto.createHmac('sha256', smsKey).update(data).digest('hex') //Creates Hash Again
+        const newCalculatedHash = crypto.createHmac('sha256', process.env.SECRET_KEY).update(data).digest('hex') //Creates Hash Again
 
         if (newCalculatedHash === hashValue) {  //If Newly created hash and hash provided by user is same
-            const accessToken = jwt.sign({ data: phoneNo }, `${JWT_AUTH_TOKEN}`, { expiresIn: '30s' })
-            const refreshToken = jwt.sign({ data: phoneNo }, `${JWT_REFRESH_TOKEN}`, { expiresIn: '1y' })
-            refreshTokens.push(refreshToken)
+            const accessToken = jwt.sign({ data: email }, `${JWT_AUTH_TOKEN}`, { expiresIn: '30s' })
 
             res.status(202).send({ msg: "device Confirmed" })
         }
@@ -128,7 +152,7 @@ router.post('/verifyOTP', async (req, res) => {
             res.json("Invalid OTP")
         }
 
-    }catch(err){
+    } catch (err) {
         console.log(err)
     }
 
@@ -163,9 +187,5 @@ router.post('/resetPassword', async (req, res) => {
 
 })
 
-
-router.get('/logout', (req, res) => {
-    res.clearCookie('refreshToken').clearCookie('accessToken').clearCookie('authSession').clearCookie('resfreshTokenID').send({ msg: "Logout " })
-})
 
 module.exports = router
