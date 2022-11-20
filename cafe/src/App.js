@@ -16,6 +16,7 @@ function App() {
         <Route exact path='/' element={<Registration />} />
         <Route exact path='/login' element={<Login/>} />
         <Route exact path='/verifyOTP' element={<Verify />} />
+        <Route exact path='/password' element={<Password />} />
       </Routes>
     </BrowserRouter>
     </>

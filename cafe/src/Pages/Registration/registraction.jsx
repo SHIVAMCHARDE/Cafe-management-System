@@ -33,7 +33,10 @@ export default function registraction() {
 
         alert(JSON.stringify(response.data.msg))
         console.log(JSON.stringify(response.data));
-        window.location.href = '/VerifyOTP'
+
+        localStorage.setItem('hash' , response.data.fullHash )
+
+        window.location.href = `/VerifyOTP?email=${email}`
 
       })
       .catch(function (error) {
