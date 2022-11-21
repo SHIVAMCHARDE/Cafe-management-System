@@ -13,5 +13,6 @@
   },
   "scripts": {
     "start": "nodemon server.js"
-  }
+  },
+  "type": "commonjs"
 }

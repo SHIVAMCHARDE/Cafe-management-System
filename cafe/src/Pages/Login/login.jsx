@@ -39,9 +39,9 @@ export default function Login() {
         alert(JSON.stringify("Login Successfull"))
         
         setIsLogged(response.data)
-
         localStorage.removeItem('newHash')
 
+        window.location.href = '/home'
 
       })
       .catch(function (error) {

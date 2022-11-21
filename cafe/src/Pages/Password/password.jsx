@@ -35,7 +35,7 @@ export default function password() {
           if (response.status === 201) {
             localStorage.removeItem('hash')
             localStorage.removeItem('newHash')
-            window.location.href('/login')
+            window.location.href = '/login'
           }
 
 

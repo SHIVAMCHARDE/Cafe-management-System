@@ -13,7 +13,9 @@ export default function Home() {
 
     const user = useSelector(state => state.User)
 
-    console.log(user)
+    if( !user.isAuthenticated){
+        window.location.href = '/login'
+    }
 
 
     return (

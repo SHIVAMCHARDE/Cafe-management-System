@@ -1,4 +1,5 @@
-import { verify as _verify } from "jsonwebtoken";
+const jwt = require("jsonwebtoken")
+// import jwt from 'jsonwebtoken'
 
 function verify(req, res, next) {
 
@@ -16,4 +17,4 @@ function verify(req, res, next) {
     }
 }
 
-export default verify; 
+module.exports = verify

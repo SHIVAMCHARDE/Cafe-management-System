@@ -7,7 +7,7 @@ dotenv.config()
 const jwt = require('jsonwebtoken')
 var nodemailer = require('nodemailer');
 const { create } = require("../Module/User")
-const verify = require('./verifyToken')
+const verify = require('../verifyToken')
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
