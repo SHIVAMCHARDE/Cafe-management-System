@@ -7,6 +7,7 @@ dotenv.config()
 const jwt = require('jsonwebtoken')
 var nodemailer = require('nodemailer');
 const { create } = require("../Module/User")
+const verify = require('./verifyToken')
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -84,42 +85,32 @@ router.post('/login', async (req, res) => {
     const email = req.body.email
     const password = req.body.password
 
-    console.log(email);
 
     try {
+
         const user = await User.findOne({ email })//Find User in Database by PhoneNo 
+
         try {
 
             var bytes = CryptoJS.AES.decrypt(user.userPassword, process.env.SECRET_KEY); //Decrypt the Encrypted Password
             var originalPass = bytes.toString(CryptoJS.enc.Utf8); //Original Password
 
             originalPass !== password &&
-                res.status(401).json("Invalid Password")
+                res.status(401).json({ msg : "Invalid Password"})
+
+
+
+            const accessToken = user.accessToken
+            res.status(200).json({ accessToken , data:{ user } , isAuthenticated : true})
+
 
         } catch (err) {
-            res.json("Invalid Email")
+            console.log(err);
+            res.json({msg : "Invalid Email"})
         }
 
-        const OTP = Math.floor(Math.random() * 1000000)  //6 Digit OTP
-        const timeLimit = 2 * 60 * 1000 // 2mins in milliseconds
-        const expires = Date.now() + timeLimit
 
-        const data = `${email}.${OTP}.${expires}` //Hash Data for JWT
-        const hash = crypto.createHmac('sha256', process.env.SECRET_KEY).update(data).digest('hex') //Hashing of Data
 
-        const fullHash = `${hash}.${expires}` //hash with Expiry
-
-        // client.messages.create({   //UnComment For only Checking ( Requires Money BRUHHHHHHHH !!!!!!!!!!!!)
-        //     body : `Your OTP for LOGIN is ${OTP}`,
-        //     from : +19106684570,
-        //     to : `+91${phoneNo}`
-        // }).then((msg) => {
-        //     console.log(msg)
-        // } ).catch( (err)=>{
-        //     console.log(err)
-        // })
-
-        res.json({ email, hash: fullHash, password, OTP })
     } catch (err) {
         console.log(err)
     }
@@ -152,7 +143,6 @@ router.post('/verifyOTP', async (req, res) => {
         if (newCalculatedHash === hashValue) {
 
             //If Newly created hash and hash provided by user is same
-            // const accessToken = jwt.sign({ data: email }, { expiresIn: '30s' })
 
             const timeLimit = 15 * 60 * 1000 // 15mins in milliseconds
             const expires = Date.now() + timeLimit
@@ -194,13 +184,15 @@ router.post('/resetPassword', async (req, res) => {
     let email = data.split('?')[0]
     let fullName = data.split('?')[1]
 
+    const accessToken = jwt.sign({ data: {email ,  name : fullName } } , process.env.SECRET_KEY , { expiresIn: '1m' })
 
     try {
 
         const newUser = new User({
             userName: fullName,
             email: email,
-            userPassword: CryptoJS.AES.encrypt(password, process.env.SECRET_KEY).toString() //Encryptes Password
+            userPassword: CryptoJS.AES.encrypt(password, process.env.SECRET_KEY).toString(), //Encryptes Password,
+            accessToken : accessToken
         })
 
         const user = await newUser.save()
