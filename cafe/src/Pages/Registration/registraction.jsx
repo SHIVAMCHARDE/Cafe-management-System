@@ -34,9 +34,12 @@ export default function registraction() {
         alert(JSON.stringify(response.data.msg))
         console.log(JSON.stringify(response.data));
 
-        localStorage.setItem('hash' , response.data.fullHash )
+        if(response.data.fullHash){
+          localStorage.setItem('hash' , response.data.fullHash )
+          window.location.href = `/VerifyOTP?email=${email}&fullName=${name}`
+        }
 
-        window.location.href = `/VerifyOTP?email=${email}`
+
 
       })
       .catch(function (error) {

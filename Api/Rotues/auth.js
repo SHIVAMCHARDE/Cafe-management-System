@@ -6,6 +6,7 @@ const dotenv = require("dotenv")
 dotenv.config()
 const jwt = require('jsonwebtoken')
 var nodemailer = require('nodemailer');
+const { create } = require("../Module/User")
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -15,9 +16,14 @@ var transporter = nodemailer.createTransport({
     }
 });
 
+function createHash(data) {
+
+    return crypto.createHmac('sha256', process.env.SECRET_KEY).update(data).digest('hex') //Hashing of Data
+
+}
+
 
 router.post('/register', async (req, res) => {
-
 
     //declaring credentials
     const fullName = req.body.name
@@ -27,8 +33,11 @@ router.post('/register', async (req, res) => {
     const timeLimit = 2 * 60 * 1000 // 2mins in milliseconds
     const expires = Date.now() + timeLimit
 
-    const data = `${email}.${OTP}.${expires}` //Hash Data for JWT
-    const hash = crypto.createHmac('sha256', process.env.SECRET_KEY).update(data).digest('hex') //Hashing of Data
+
+    console.log({ email, fullName, OTP, expires });
+
+    const data = `${email}.${fullName}.${OTP}.${expires}` //Hash Data for JWT
+    const hash = createHash(data)
 
     const fullHash = `${hash}.${expires}`
 
@@ -51,7 +60,7 @@ router.post('/register', async (req, res) => {
             }
         });
 
-        res.json({ msg: "OTP Send Successfully" , OTP ,fullHash })
+        res.json({ msg: "OTP Send Successfully", OTP, fullHash })
 
     } catch (e) {
         console.log(e);
@@ -113,6 +122,7 @@ router.post('/verifyOTP', async (req, res) => {
     try {
 
         const email = req.body.email
+        const fullName = req.body.fullName
         const hash = req.body.hash
         const OTP = req.body.otp
         let [hashValue, expires] = hash.split('.') //Taking the hash and Breaking it into hashValue and Exprixy
@@ -123,51 +133,80 @@ router.post('/verifyOTP', async (req, res) => {
             return res.status(504).send({ msg: ' TimeOut' })  //IF Expired after 2 min
         }
 
-        const data = `${email}.${OTP}.${expires}` //Hash for JWT
+        const data = `${email}.${fullName}.${OTP}.${expires}` //Hash for JWT
 
-        const newCalculatedHash = crypto.createHmac('sha256', process.env.SECRET_KEY).update(data).digest('hex') //Creates Hash Again
+        const newCalculatedHash = createHash(data)
 
-        if (newCalculatedHash === hashValue) {  //If Newly created hash and hash provided by user is same
+        console.log({ email, fullName, OTP, expires });
+
+
+        if (newCalculatedHash === hashValue) {
+
+            //If Newly created hash and hash provided by user is same
             // const accessToken = jwt.sign({ data: email }, { expiresIn: '30s' })
-            res.status(202).send({ msg: "OTP Verified" })
 
+            const timeLimit = 15 * 60 * 1000 // 15mins in milliseconds
+            const expires = Date.now() + timeLimit
+            let newData = `${email}?${fullName}` //Hash for JWT
+
+            let hash = CryptoJS.AES.encrypt(newData, process.env.SECRET_KEY).toString()//Encryptes Password
+            hash = `${hash}.${expires}`
+
+            res.status(202).send({ msg: "OTP Verified", hash })
         }
+
         else {
-            res.json({msg : "Invalid OTP"})
+            res.json({ msg: "Invalid OTP" })
         }
 
     } catch (err) {
         console.log(err)
     }
 
-
-
 })
 
 router.post('/resetPassword', async (req, res) => {
 
-    const phoneNo = req.body.phoneNo
+    const hash = req.body.newHash
+    const password = req.body.password
 
-    const OTP = Math.floor(Math.random() * 1000000)  //6 Digit OTP
-    const timeLimit = 2 * 60 * 1000 // 2mins in milliseconds
-    const expires = Date.now() + timeLimit
 
-    const data = `${phoneNo}.${OTP}.${expires}` //Hash Data for JWT
-    const hash = crypto.createHmac('sha256', smsKey).update(data).digest('hex') //Hashing of Data
+    let [hashValue, expires] = hash.split('.')
 
-    const fullHash = `${hash}.${expires}` //hash with Expiry
+    let now = Date.now()
 
-    // client.messages.create({   //UnComment For only Checking ( Requires Money BRUHHHHHHHH !!!!!!!!!!!!)
-    //     body : `Your OTP for Reset Password is ${OTP}`,
-    //     from : +19106684570,
-    //     to : `+91${phoneNo}`
-    // }).then((msg) => {
-    //     console.log(msg)
-    // } ).catch( (err)=>{
-    //     console.log(err)
-    // })
+    if (now > parseInt(expires)) {
+        res.status(404).json({ msg: "Timeout" })
+    }
 
-    res.status(200).send({ phoneNo, hash: fullHash, password, OTP })
+    let data = CryptoJS.AES.decrypt(hashValue, process.env.SECRET_KEY); //Decrypt the Encrypted Password
+    data = data.toString(CryptoJS.enc.Utf8);
+
+    let email = data.split('?')[0]
+    let fullName = data.split('?')[1]
+
+
+    try {
+
+        const newUser = new User({
+            userName: fullName,
+            email: email,
+            userPassword: CryptoJS.AES.encrypt(password, process.env.SECRET_KEY).toString() //Encryptes Password
+        })
+
+        const user = await newUser.save()
+        
+        res.status(201).json({msg : "user Created"})
+
+    } catch (e) {
+        res.json({ msg : "Error Ocurred"})
+    }
+
+
+    // const fullHash = `${hash}.${expires}` //hash with Expiry
+
+
+    // res.status(200).send({ phoneNo, hash: fullHash, password, OTP })
 
 })
 

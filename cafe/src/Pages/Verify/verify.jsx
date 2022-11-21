@@ -13,11 +13,13 @@ export default function verify() {
 
     let otp = parseInt(inp1 + inp2 + inp3 + inp4)
 
-    let email = (window.location.href).split('email=')[1]
+    let email = ((window.location.href).split('=')[1]).split('&')[0]
     console.log(email);
+    let fullName = (window.location.href).split('fullName=')[1]
 
     var data = JSON.stringify({
       "email": email,
+      "fullName": decodeURI(fullName),
       "hash": localStorage.getItem('hash'),
       "otp": otp
     })
@@ -35,10 +37,20 @@ export default function verify() {
       .then(function (response) {
 
         alert(JSON.stringify(response.data.msg))
+        console.log(response.status);
 
-        console.log(JSON.stringify(response.data));
+        if (response.status === 202) {
 
-        window.location.href = '/password'
+          console.log(JSON.stringify(response.data));
+          localStorage.setItem('newHash', response.data.hash)
+          localStorage.removeItem('hash')
+
+          window.location.href = '/password'
+
+        } 
+        else if (response.status === 504) {
+          localStorage.removeItem('hash')
+        }
 
       })
       .catch(function (error) {
