@@ -32,18 +32,20 @@ export default function registraction() {
       .then(function (response) {
 
         alert(JSON.stringify(response.data.msg))
-        console.log(JSON.stringify(response.data));
+        console.log(response);
+
 
         if(response.data.fullHash){
           localStorage.setItem('hash' , response.data.fullHash )
           window.location.href = `/VerifyOTP?email=${email}&fullName=${name}`
         }
 
-
-
       })
       .catch(function (error) {
         console.log(error);
+        if( error.response.status === 403 ){
+          alert(error.response.data.msg)
+        }
       });
 
 

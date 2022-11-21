@@ -29,42 +29,51 @@ router.post('/register', async (req, res) => {
     const fullName = req.body.name
     const email = req.body.email
 
-    const OTP = Math.floor(Math.random() * 10000)  //4 Digit OTP
-    const timeLimit = 2 * 60 * 1000 // 2mins in milliseconds
-    const expires = Date.now() + timeLimit
+    const checkUser = await User.findOne({ email })
+
+    if (checkUser) {
+        res.status(403).json({ msg: "Email Alredy Registered" })
+    }
+    else {
 
 
-    console.log({ email, fullName, OTP, expires });
+        const OTP = Math.floor(Math.random() * 10000)  //4 Digit OTP
+        const timeLimit = 2 * 60 * 1000 // 2mins in milliseconds
+        const expires = Date.now() + timeLimit
 
-    const data = `${email}.${fullName}.${OTP}.${expires}` //Hash Data for JWT
-    const hash = createHash(data)
 
-    const fullHash = `${hash}.${expires}`
+        console.log({ email, fullName, OTP, expires });
 
-    var mailOptions = {
-        from: 'bhaveshanandpara12@gmail.com',
-        to: email,
-        subject: 'OTP for Verification at Cafe Managment System',
-        text: `your OTP is ${OTP}`
-    };
+        const data = `${email}.${fullName}.${OTP}.${expires}` //Hash Data for JWT
+        const hash = createHash(data)
 
-    try {
+        const fullHash = `${hash}.${expires}`
 
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error);
-                res.send('error') // if error occurs send error as response to client
-            }
-            else {
-                console.log('Email sent: ' + info.response);
-            }
-        });
+        var mailOptions = {
+            from: 'bhaveshanandpara12@gmail.com',
+            to: email,
+            subject: 'OTP for Verification at Cafe Managment System',
+            text: `your OTP is ${OTP}`
+        };
 
-        res.json({ msg: "OTP Send Successfully", OTP, fullHash })
+        try {
 
-    } catch (e) {
-        console.log(e);
-        res.json("Error Occured")
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                    res.send('error') // if error occurs send error as response to client
+                }
+                else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+
+            res.json({ msg: "OTP Send Successfully", OTP, fullHash })
+
+        } catch (e) {
+            console.log(e);
+            res.json("Error Occured")
+        }
     }
 
 })
@@ -195,11 +204,11 @@ router.post('/resetPassword', async (req, res) => {
         })
 
         const user = await newUser.save()
-        
-        res.status(201).json({msg : "user Created"})
+
+        res.status(201).json({ msg: "user Created" })
 
     } catch (e) {
-        res.json({ msg : "Error Ocurred"})
+        res.json({ msg: "Error Ocurred" })
     }
 
 
