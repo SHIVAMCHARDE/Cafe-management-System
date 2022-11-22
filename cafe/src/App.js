@@ -4,7 +4,7 @@ import Login from './Pages/Login/Login';
 import Registration from './Pages/Registration/Registraction';
 import OTP from './Pages/OTP/Otp';
 import Password from './Pages/Password/Password';
-import Verify from './Pages/Verify/verify';
+import Verify from './Pages/Verify/Verify';
 import Home from './Pages/Home/Home'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 

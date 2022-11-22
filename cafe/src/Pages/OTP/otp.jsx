@@ -1,5 +1,5 @@
 import React from 'react'
-import '../OTP/otp.css'
+import '../OTP/Otp.css'
 
 export default function otp() {
   return (

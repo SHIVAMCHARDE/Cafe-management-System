@@ -1,5 +1,5 @@
 import React from 'react'
-import '../Verify/verify.css'
+import '../Verify/Verify.css'
 import axios from 'axios'
 
 export default function verify() {
