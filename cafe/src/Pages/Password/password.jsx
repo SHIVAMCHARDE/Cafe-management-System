@@ -1,5 +1,5 @@
 import React from 'react'
-import '../Password/password.css'
+import '../Password/Password.css'
 import axios from 'axios'
 
 export default function password() {
