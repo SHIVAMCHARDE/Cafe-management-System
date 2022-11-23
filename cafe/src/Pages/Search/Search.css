@@ -1,9 +1,9 @@
 .cafe_card{
-    border: 2px solid black;
+    /* border: 2px solid black; */
     height: 255px;
-    /* display: flex;
-    flex-direction: row;
-    align-items: center; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .img_card_con{
     display: flex;
@@ -12,9 +12,11 @@
 }
 .cafe_img{
     border: 2px solid rgb(204, 46, 46);
-    width: 39%;
-    height: 127px;
+    width: 33%;
+    height: 123px;
     margin: 9px;
+    border-radius: 7px;
+
 }
 
 .info{
@@ -39,24 +41,24 @@
   }
 
 .cafeName{
-    border: 2px solid rgb(81, 158, 73);
+    /* border: 2px solid rgb(81, 158, 73); */
     margin: 0px;
     padding: 0px;
 }
 
 
 .foodType{
-    border: 2px solid rgb(24, 134, 212);
+    /* border: 2px solid rgb(24, 134, 212); */
     margin: 0px;
     padding: 0px;
 }
 .address{
-    border: 2px solid rgb(206, 109, 241);
+    /* border: 2px solid rgb(206, 109, 241); */
     margin: 0px;
     padding: 0px;
 }
 .ratings{
-    border: 2px solid rgb(238, 111, 111);
+    /* border: 2px solid rgb(238, 111, 111); */
     margin: 0px;
     padding: 0px;
 }
@@ -84,9 +86,25 @@
     font-family: 'Poppins';
     font-size: small;
 }
-/* .menu{
+.menu{
     display: flex;
-} */
-.Menu_btn{
-    width: 30px;
+    flex-direction: row;
+    justify-content: space-around;
 }
+
+
+#btnMenu{
+    text-decoration: none;
+    border-style: none;
+    width: 267px;
+    height: 40px;
+    background-color: rgb(72 75 255 / 22%);
+    color: rgb(85, 85, 223);
+    border-radius: 9px;  
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color:  #A5A6F6;
+  }
+  .H4{
+    margin: 0px;
+  }
