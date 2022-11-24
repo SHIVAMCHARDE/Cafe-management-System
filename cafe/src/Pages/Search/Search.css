@@ -1,0 +1,110 @@
+.cafe_card{
+    /* border: 2px solid black; */
+    height: 255px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.img_card_con{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.cafe_img{
+    border: 2px solid rgb(204, 46, 46);
+    width: 33%;
+    height: 123px;
+    margin: 9px;
+    border-radius: 7px;
+
+}
+
+.info{
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+   
+}
+.input_box{
+    margin: 20px;
+    margin-top: 36px;
+    height: 35px;
+    width: 313px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 2px solid #A5A6F6;
+}
+.input_box:hover {
+    box-sizing: border-box;
+    border: 4px solid #A5A6F6;
+  }
+
+.cafeName{
+    /* border: 2px solid rgb(81, 158, 73); */
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.foodType{
+    /* border: 2px solid rgb(24, 134, 212); */
+    margin: 0px;
+    padding: 0px;
+}
+.address{
+    /* border: 2px solid rgb(206, 109, 241); */
+    margin: 0px;
+    padding: 0px;
+}
+.ratings{
+    /* border: 2px solid rgb(238, 111, 111); */
+    margin: 0px;
+    padding: 0px;
+}
+#p1{
+    font-family: 'Poppins';
+    font-size: medium;
+    font-size: 24px;
+    margin: 0px;
+}
+#p2{
+    font-family: 'Poppins';
+    font-size:small;
+    color:  #A5A6F6;
+    
+    
+}
+#p3{
+    font-family: 'Poppins';
+    font-size: small;
+    color:  #9D9D9D;
+    margin: 0;
+   
+}
+#p4{
+    font-family: 'Poppins';
+    font-size: small;
+}
+.menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+#btnMenu{
+    text-decoration: none;
+    border-style: none;
+    width: 267px;
+    height: 40px;
+    background-color: rgb(72 75 255 / 22%);
+    color: rgb(85, 85, 223);
+    border-radius: 9px;  
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color:  #A5A6F6;
+  }
+  .H4{
+    margin: 0px;
+  }

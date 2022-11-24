@@ -1,11 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
 import Login from './Pages/Login/Login';
-import Registration from './Pages/Registration/registraction';
-import OTP from './Pages/OTP/otp';
-import Password from './Pages/Password/password';
-import Verify from './Pages/Verify/verify';
+import Registration from './Pages/Registration/Registraction';
+import OTP from './Pages/OTP/Otp';
+import Password from './Pages/Password/Password';
+import Verify from './Pages/Verify/Verify';
 import Home from './Pages/Home/Home'
+import Search from './Pages/Search/Search'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { setIsLogged } from './States/action-creators/index'
@@ -28,15 +29,15 @@ function App() {
 
   return (
     <>
-      <Routes>
+      {/* <Routes>
         <Route exact path='/' element={  user.isAuthenticated ? <Home/> : <Login/>  }  /> :
         <Route exact path='/home' element={<Home />} />
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/register' element={<Registration />} />
         <Route exact path='/verifyOTP' element={<Verify />} />
-        <Route exact path='/password' element={<Password />} />
-
-      </Routes>
+        <Route exact path='/password' element={<Password />} /> */}
+       <Search/>
+      {/* </Routes> */}
     </>
   );
 }
