@@ -5,10 +5,12 @@ const dotenv = require("dotenv")
 const cookiePasrser = require('cookie-parser')
 const cors = require("cors");
 
-
 const authRoute = require("../Api/Rotues/auth")
+const cafeRoute = require("../Api/Rotues/cafe")
 
 dotenv.config();
+
+app.use(cors())
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -29,6 +31,7 @@ app.use(express.json())
 app.use(cookiePasrser())
 
 app.use("/auth" , authRoute)
+app.use("/cafe" , cafeRoute)
 
 app.listen( 6969 , ()=>{
     console.log( "Backend Server is Running" );

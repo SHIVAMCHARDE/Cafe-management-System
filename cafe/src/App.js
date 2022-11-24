@@ -15,6 +15,7 @@ import { bindActionCreators } from 'redux'
 import { acitionCreators } from './States/index'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react';
+import CafeProfile from './Pages/CafeProfile/CafeProfile';
 
 
 function App() {
@@ -29,15 +30,16 @@ function App() {
 
   return (
     <>
-      {/* <Routes>
+      <Routes>
         <Route exact path='/' element={  user.isAuthenticated ? <Home/> : <Login/>  }  /> :
-        <Route exact path='/home' element={<Home />} />
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/register' element={<Registration />} />
         <Route exact path='/verifyOTP' element={<Verify />} />
-        <Route exact path='/password' element={<Password />} /> */}
-       <Search/>
-      {/* </Routes> */}
+        <Route exact path='/password' element={<Password />} />
+
+        <Route exact path='/home' element={<Home />} />
+        <Route exact path='/profile' element={<CafeProfile />} />
+      </Routes>
     </>
   );
 }

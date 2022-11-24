@@ -37,7 +37,6 @@ export default function Login() {
       .then(function (response) {
 
         alert(JSON.stringify("Login Successfull"))
-        
         setIsLogged(response.data)
         localStorage.removeItem('newHash')
 

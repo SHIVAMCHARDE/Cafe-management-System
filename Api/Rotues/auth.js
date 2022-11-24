@@ -85,10 +85,9 @@ router.post('/login', async (req, res) => {
     const email = req.body.email
     const password = req.body.password
 
-
     try {
 
-        const user = await User.findOne({ email })//Find User in Database by PhoneNo 
+        let user = await User.findOne({ email })//Find User in Database by PhoneNo 
 
         try {
 
@@ -96,17 +95,18 @@ router.post('/login', async (req, res) => {
             var originalPass = bytes.toString(CryptoJS.enc.Utf8); //Original Password
 
             originalPass !== password &&
-                res.status(401).json({ msg : "Invalid Password"})
+                res.status(401).json({ msg: "Invalid Password" })
 
+            const accessToken = jwt.sign({ data: { email, name: user.name } }, process.env.SECRET_KEY, { expiresIn: '1m' })
+            console.log("New AccessToken " + accessToken);
 
-
-            const accessToken = user.accessToken
-            res.status(200).json({ accessToken , data:{ user } , isAuthenticated : true})
+            let theUser = await User.findOneAndUpdate({ email }, { accessToken }, { new: true })
+            res.status(200).json({ accessToken, data: { theUser }, isAuthenticated: true })
 
 
         } catch (err) {
             console.log(err);
-            res.json({msg : "Invalid Email"})
+            res.status(403).json({ msg: "Invalid Email" })
         }
 
 
@@ -184,7 +184,7 @@ router.post('/resetPassword', async (req, res) => {
     let email = data.split('?')[0]
     let fullName = data.split('?')[1]
 
-    const accessToken = jwt.sign({ data: {email ,  name : fullName } } , process.env.SECRET_KEY , { expiresIn: '1m' })
+    const accessToken = jwt.sign({ data: { email, name: fullName } }, process.env.SECRET_KEY, { expiresIn: '1d' })
 
     try {
 
@@ -192,7 +192,7 @@ router.post('/resetPassword', async (req, res) => {
             userName: fullName,
             email: email,
             userPassword: CryptoJS.AES.encrypt(password, process.env.SECRET_KEY).toString(), //Encryptes Password,
-            accessToken : accessToken
+            accessToken: accessToken
         })
 
         const user = await newUser.save()
