@@ -8,6 +8,7 @@ import Verify from './Pages/Verify/Verify';
 import Home from './Pages/Home/Home'
 import Search from './Pages/Search/Search'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import CafePage from './Pages/CafePage/CafePage'
 
 import { setIsLogged } from './States/action-creators/index'
 import { useDispatch, useSelector } from 'react-redux'
@@ -36,6 +37,8 @@ function App() {
         <Route exact path='/register' element={<Registration />} />
         <Route exact path='/verifyOTP' element={<Verify />} />
         <Route exact path='/password' element={<Password />} />
+        <Route exact path='/Search' element={<Search />} />
+        <Route exact path='/CafePage' element={<CafePage/>} />
 
         <Route exact path='/home' element={<Home />} />
         <Route exact path='/profile' element={<CafeProfile />} />
