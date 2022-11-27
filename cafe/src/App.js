@@ -16,6 +16,7 @@ import { acitionCreators } from './States/index'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react';
 import CafeProfile from './Pages/CafeProfile/CafeProfile';
+import Orders from './Pages/Orders/Orders';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
 
         <Route exact path='/home' element={<Home />} />
         <Route exact path='/profile' element={<CafeProfile />} />
+        <Route exact path='/order' element={<Orders />} />
       </Routes>
     </>
   );
