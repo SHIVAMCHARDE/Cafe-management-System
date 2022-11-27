@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import SearchBar from '../../components/SearchBar/SearchBar'
-import data from './CafePageData'
-import 
+import CafePageData from './CafePageData'
+import CafePageCard from'./CafePageCard' 
 const CafePage = (data) => {
-const [Sdata, setSdata] = useState(data);
+
+const [Sdata, setSdata] = useState(CafePageData);
     return (
       <>
       {
@@ -16,7 +17,10 @@ const [Sdata, setSdata] = useState(data);
                 </div>
             </div>
             <div>
-                <CafePage data={Sdata}/>
+                        <p className="menu-type">South Indian (10)</p>
+                      </div>
+            <div>
+                <CafePageCard data={Sdata}/>
             </div>
 
         </div>
