@@ -15,19 +15,15 @@ export default function CafeProfile() {
 
     const [cafeInfo, setCafeInfo] = useState()
 
-    const dispatch = useDispatch()
-    const { setIsLogged } = bindActionCreators(acitionCreators, dispatch)
-    const navigate = useNavigate()
-
-    const user = useSelector(state => state.User)
 
 
-    const id = (window.location.href).split('id=')[1]
+
+    const id = (window.location.href).split('?')[1]
     console.log(id)
 
     var config = {
         method: 'get',
-        url: `http://localhost:6969/cafe/getCafeDetails?id=${id}`,
+        url: `http://localhost:6969/cafe/getCafeDetails?${id}`,
         headers: {
             'Content-Type': 'application/json'
         },

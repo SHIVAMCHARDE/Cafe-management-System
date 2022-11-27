@@ -58,7 +58,8 @@ router.post('/registerCafe', verify ,async (req, res) => {
 router.get( '/getCafeDetails' , async( req,res) =>{
 
     const id = req.query.id
-    console.log(id)
+    const table = req.query.table
+    console.log(table)
 
     try{
 
