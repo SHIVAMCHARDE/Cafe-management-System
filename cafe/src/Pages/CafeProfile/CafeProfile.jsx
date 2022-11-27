@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { useState } from 'react'
 import { setIsLogged } from '../../States/action-creators/index'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -8,6 +9,12 @@ import { useNavigate } from 'react-router-dom'
 
 export default function CafeProfile() {
 
+
+
+    // navigator.geolocation.getCurrentPosition((loc)=>{console.log(loc)} , (e)=>{console.log(e)})
+
+    const [cafeInfo, setCafeInfo] = useState()
+
     const dispatch = useDispatch()
     const { setIsLogged } = bindActionCreators(acitionCreators, dispatch)
     const navigate = useNavigate()
@@ -15,38 +22,24 @@ export default function CafeProfile() {
     const user = useSelector(state => state.User)
 
 
-    var data = JSON.stringify({
-        "cafeName": "Wings Cafe",
-        "subtitle": "Fast food, North Indian, ,street Food",
-        "address": "Karla Chowk, Wardha.",
-        "profileImg": "",
-        "owner": "Bhavesh Anandpara"
-    });
+    const id = (window.location.href).split('id=')[1]
+    console.log(id)
 
     var config = {
-        method: 'post',
-        url: 'http://localhost:6969/cafe/registercafe',
+        method: 'get',
+        url: `http://localhost:6969/cafe/getCafeDetails?id=${id}`,
         headers: {
-            'Content-Type': 'application/json',
-            "token": user.accessToken
+            'Content-Type': 'application/json'
         },
-        data: data
+
     };
 
     axios(config)
         .then(function (response) {
-
             console.log(JSON.stringify(response.data));
-
-
         })
         .catch(function (error) {
-
             console.log(error);
-            if (error.response.status === 440) {
-                alert("Session Expired")
-                // window.location.href = '/login'
-            }
         });
 
 

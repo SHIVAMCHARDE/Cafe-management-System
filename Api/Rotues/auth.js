@@ -97,7 +97,7 @@ router.post('/login', async (req, res) => {
             originalPass !== password &&
                 res.status(401).json({ msg: "Invalid Password" })
 
-            const accessToken = jwt.sign({ data: { email, name: user.name } }, process.env.SECRET_KEY, { expiresIn: '1m' })
+            const accessToken = jwt.sign({ data: { email, name: user.name } }, process.env.SECRET_KEY, { expiresIn: '1d' })
             console.log("New AccessToken " + accessToken);
 
             let theUser = await User.findOneAndUpdate({ email }, { accessToken }, { new: true })
