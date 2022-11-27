@@ -25,7 +25,9 @@ const SearchData=[
         Address:"Wardha Locality, Wardha.",
         Ratings:"4 star"
 
-    }
+    },
+    
+    
 ]
 
 export default SearchData;

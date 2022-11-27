@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import './Search.css'
 import SearchData from './SearchData'
 import Cards from './Cards'
+import SearchBar from '../../components/SearchBar/SearchBar'
+
 
 const Search = (data) => {
 
@@ -10,11 +12,8 @@ const Search = (data) => {
     <>
       { 
       <div className="Search_container">
-        <div className="input_container">
-          <img src=''/>
-          <input className='input_box' type='text' id='' placeholder="Search for your fav cafe..."/>
-        </div>
-      <div>
+             <SearchBar/>
+      <div className='card_container'>
           <Cards data={Sdata} />
         </div>
       </div>
