@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Login from './Pages/Login/Login';
-import Registration from './Pages/Registration/Registraction';
+import Registration from './Pages/Registration/Registraction'
 import OTP from './Pages/OTP/Otp';
 import Password from './Pages/Password/Password';
 import Verify from './Pages/Verify/Verify';
@@ -38,12 +38,12 @@ function App() {
         <Route exact path='/register' element={<Registration />} />
         <Route exact path='/verifyOTP' element={<Verify />} />
         <Route exact path='/password' element={<Password />} />
-        <Route exact path='/Search' element={<Search />} />
-        <Route exact path='/CafePage' element={<CafePage/>} />
 
         <Route exact path='/home' element={<Home />} />
         <Route exact path='/profile' element={<CafeProfile />} />
         <Route exact path='/order' element={<Orders />} />
+        <Route exact path='/CafePage' element={<CafePage/>} />
+        <Route exact path='/Search' element={<Search />} />
       </Routes>
     </>
   );

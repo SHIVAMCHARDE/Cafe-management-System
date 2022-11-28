@@ -2,25 +2,37 @@ import React from 'react'
 const heart_pic ='../Assets/heart.png';
 const Cards = ({ data }) => {
 
+    console.log(data);
+// address :  "Karla Chowk, Wardha."
+// cafeName : "Wings Cafe"
+// city : "Wardha"
+// coordinates :  {latitude: 22.1458004, longitude: 80.0881546}
+// dishes :  []
+// orders :  []
+// owner : "637b2f95987d89353fef9e03"
+// profileImg : ""
+// subtitle :  "Fast food, North Indian, ,street Food"
+// _id : "638334b867d5a202f25f15cc"
+
+function getPath( path ){
+        return path.split('public')[1]
+}
+
     return (
         <>
-            {
-                data.map((element, k) => {
-                    return (
-                        <>
                             <div className="cafe_card">
 
                                 <div className='img_card_con'>
                                     <div className="cafe_img">
-                                        <img src={element.imgData} alt='' />
+                                        <img src={getPath(data.profileImg)} alt='' />
                                     </div>
                                     <div className="info">
 
-                                        <div className='cafeName'><p id='p1'><h4 className='H4'>{element.Cname}</h4></p>
-                                            <p id='p2'>{element.Food_Type}</p>
-                                            < p id='p3'>{element.Address}</p>
+                                        <div className='cafeName'><p id='p1'><h4 className='H4'>{data.cafeName}</h4></p>
+                                            <p id='p2'>{data.subtitle}</p>
+                                            < p id='p3'>{data.address}</p>
                                         </div>
-                                        <div className='ratings'>< p id='p4'>{element.Ratings}</p></div>
+                                        <div className='ratings'>< p id='p4'>{data.ratings}</p></div>
                                     </div>
                                 </div>
 
@@ -37,11 +49,6 @@ const Cards = ({ data }) => {
 
                         </>
                     )
-                })
-            }
-
-        </>
-    )
 }
 
 export default Cards

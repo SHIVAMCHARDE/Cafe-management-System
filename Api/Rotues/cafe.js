@@ -2,17 +2,32 @@ const router = require("express").Router()
 const Cafe = require("../Module/Cafe")
 const User = require("../Module/User")
 const verify = require('../verifyToken')
+const multer = require('multer')
+
+const storage = multer.diskStorage({ // notice you are calling the multer.diskStorage() method here, not multer()
+    destination: function (req, file, cb) {
+        cb(null, '../cafe/public/Media/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+});
+
+const upload = multer({ storage: storage })
 
 
-router.post('/registerCafe', verify ,async (req, res) => {
+router.post('/registerCafe', upload.single('image') , verify ,async (req, res) => {
 
-    const cafeName = req.body.cafeName
-    const subtitle = req.body.subtitle
-    const address = req.body.address
-    const city = req.body.city
-    const coordinates = req.body.coords
-    const profileImg = req.body.profileImg
-    let owner = req.body.owner
+    const data = JSON.parse(req.body.data)
+
+    const cafeName = data.cafeName
+    const subtitle = data.subtitle
+    const address = data.address
+    const city = data.city
+    const coordinates = data.coords
+    const profileImg = req.file.path
+    let owner = data.owner
+
 
     let user = req.user
     let cafe = null
@@ -81,6 +96,7 @@ router.get( '/getCafeDetails' , async( req,res) =>{
 router.post( '/getCafes' , async( req,res) =>{
 
     const city = req.body.city
+    console.log(city);
 
     try{
         const cafes = await Cafe.find({city});

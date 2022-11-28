@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './Search.css'
 import SearchData from './SearchData'
 import Cards from './Cards'
-import SearchBar from '../../components/SearchBar/SearchBar'
+import SearchBar from '../../Components/SearchBar/SearchBar'
 
 
 const Search = (data) => {
