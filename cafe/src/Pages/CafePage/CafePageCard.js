@@ -1,8 +1,8 @@
 import React from 'react'
 
 import './CafePage.css'
-import data from './CafePageData'
-const CafePage = ({ data }) => {
+
+const CafeCard = ({ data }) => {
 
 
 
@@ -40,12 +40,10 @@ const CafePage = ({ data }) => {
              </div>
 
              ss */}
-
+ 
                     <div className="CafePage-Container">
 
-                      <div>
-                        <p className="menu-type">South Indian (10)</p>
-                      </div>
+                     
 
                       <div className="menu-card-con">
 
@@ -53,20 +51,20 @@ const CafePage = ({ data }) => {
                         <div className="menu-card-info">
                           <div className="Menu_Card">
                             <div className='Dish-name'><p>
-                              {/* Masala Dosa */}
+                           
                               {a.Dish_Name}</p></div>
 
                             <div className='price-rate-con'>
                               <div className='Price'><p>
-                                {/* 80 RS/- */}
+                              
                                 {a.Price}</p></div>
                               <div className='Dish-Rating'>
-                                {/* 3 star */}
+                               
                                 {a.Dish_Rating}  </div>
                             </div>
 
                             <div className='Dish-Disp'><p>
-                              {/* Crispy RIce Panckaes filled with midly spiced mashed potatos */}
+                             
                               {a.Dish_Disc}
                             </p></div>
                             <div className='AddItem'><button className='Btn-AddItem'>Add Item</button> </div>
@@ -89,4 +87,4 @@ const CafePage = ({ data }) => {
     </>
   )
 }
-export default CafePage
+export default CafeCard
