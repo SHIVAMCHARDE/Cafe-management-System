@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import SearchBar from '../../Components/SearchBar/SearchBar'
-import Cards from '../Search/Cards'
-import data from './CafePageData'
+import CafeCard from '../../Components/CafeCard/CafeCard'
 import axios from 'axios'
 import { useEffect, useRef } from 'react'
 import * as ReactDOM from 'react-dom/client';
 
-const CafePage = () => {
+const CafeSearch = () => {
 
-    const [Sdata, setSdata] = useState(data);
+    const [Sdata, setSdata] = useState();
     const cardContainer = useRef()
 
     useEffect(() => {
@@ -38,17 +37,22 @@ const CafePage = () => {
     useEffect(() => {
 
         let cards = []
-        {
-            Sdata.forEach((data , index) => {
-                cards.push( <Cards key={index} data={data} /> )
+
+        try {
+
+            Sdata.forEach((data, index) => {
+                cards.push(<CafeCard key={index} data={data}  />)
             })
-        }
+        } catch (e) { }
+
         const root = ReactDOM.createRoot(cardContainer.current)
+
         root.render(
             <>
                 {cards}
             </>
         )
+
 
     }, [Sdata])
 
@@ -58,12 +62,7 @@ const CafePage = () => {
             {
                 <div>
                     <SearchBar />
-
-                    <div className="MenuSection">
-                        <div className="MenuHeading">
-                            <p className='menu_Heading'>Menu</p>
-                        </div>
-                    </div>
+                    
                     <div ref={cardContainer}>
                     </div>
 
@@ -72,4 +71,4 @@ const CafePage = () => {
         </>
     )
 }
-export default CafePage;
+export default CafeSearch;

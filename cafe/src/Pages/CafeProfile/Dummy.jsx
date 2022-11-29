@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import SearchBar from '../../components/SearchBar/SearchBar'
+import SearchBar from '../../Components/SearchBar/SearchBar'
 import CafePageData from './CafePageData'
 import CafePageCard from'./CafePageCard'
  
-const CafePage = (data) => {
+const Dummy = (data) => {
 
 const [Sdata, setSdata] = useState(CafePageData);
     return (
@@ -29,4 +29,4 @@ const [Sdata, setSdata] = useState(CafePageData);
         </>
     )
 }
-export default CafePage;
+export default Dummy;
