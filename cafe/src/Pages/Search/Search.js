@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './Search.css'
 import SearchData from './SearchData'
-import Cards from './Cards'
+import CafeCard from '../../Components/CafeCard/CafeCard'
 import SearchBar from '../../Components/SearchBar/SearchBar'
 
 
@@ -14,7 +14,7 @@ const Search = (data) => {
       <div className="Search_container">
              <SearchBar/>
       <div className='card_container'>
-          <Cards data={Sdata} />
+          <CafeCard data={Sdata} />
         </div>
       </div>
         

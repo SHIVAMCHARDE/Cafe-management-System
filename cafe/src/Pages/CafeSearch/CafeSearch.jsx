@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import SearchBar from '../../Components/SearchBar/SearchBar'
-import Cards from '../Search/Cards'
+import CafeCard from '../../Components/CafeCard/CafeCard'
 import axios from 'axios'
 import { useEffect, useRef } from 'react'
 import * as ReactDOM from 'react-dom/client';
@@ -41,7 +41,7 @@ const CafeSearch = () => {
         try {
 
             Sdata.forEach((data, index) => {
-                cards.push(<Cards key={index} data={data}  />)
+                cards.push(<CafeCard key={index} data={data}  />)
             })
         } catch (e) { }
 
