@@ -1,7 +1,7 @@
 import React from 'react'
 import '../Registration/Registration.css'
 import axios from 'axios'
-import QuickSignIn from '../../Components/QuickSigIn/QuickSigIn'
+import QuickSignIn from '../../components/QuickSigIn/QuickSigIn'
 
 export default function Registraction() {
 
