@@ -8,7 +8,7 @@ import Verify from './Pages/Verify/Verify';
 import Home from './Pages/Home/Home'
 import Search from './Pages/Search/Search'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import CafePage from './Pages/CafePage/CafePage'
+import CafePage from './Pages/CafeSearch/CafeSearch'
 
 import { setIsLogged } from './States/action-creators/index'
 import { useDispatch, useSelector } from 'react-redux'
@@ -18,6 +18,8 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react';
 import CafeProfile from './Pages/CafeProfile/CafeProfile';
 import Orders from './Pages/Orders/Orders';
+import Dummy from './Pages/CafeProfile/Dummy';
+import CafeSearch from './Pages/CafeSearch/CafeSearch';
 
 
 function App() {
@@ -43,7 +45,8 @@ function App() {
         <Route exact path='/profile' element={<CafeProfile />} />
         <Route exact path='/order' element={<Orders />} />
         <Route exact path='/CafePage' element={<CafePage/>} />
-        <Route exact path='/Search' element={<Search />} />
+        <Route exact path='/Search' element={<CafeSearch />} />
+        <Route exact path='/dummy' element={<Dummy />} />
       </Routes>
     </>
   );

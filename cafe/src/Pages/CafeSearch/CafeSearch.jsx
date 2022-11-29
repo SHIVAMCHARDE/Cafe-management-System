@@ -41,16 +41,18 @@ const CafeSearch = () => {
         try {
 
             Sdata.forEach((data, index) => {
-                cards.push(<Cards key={index} data={data} />)
+                cards.push(<Cards key={index} data={data}  />)
             })
         } catch (e) { }
 
         const root = ReactDOM.createRoot(cardContainer.current)
+
         root.render(
             <>
                 {cards}
             </>
         )
+
 
     }, [Sdata])
 

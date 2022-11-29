@@ -96,7 +96,6 @@ router.get( '/getCafeDetails' , async( req,res) =>{
 router.post( '/getCafes' , async( req,res) =>{
 
     const city = req.body.city
-    console.log(city);
 
     try{
         const cafes = await Cafe.find({city});

@@ -17,7 +17,6 @@ export default function CafeProfile() {
 
 
 
-
     const id = (window.location.href).split('?')[1]
     console.log(id)
 

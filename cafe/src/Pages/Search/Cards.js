@@ -20,7 +20,7 @@ function getPath( path ){
 
     return (
         <>
-                            <div className="cafe_card">
+                            <div className="cafe_card border"  onClick={()=>{ window.location.href = `/profile?id=${data._id}` }} >
 
                                 <div className='img_card_con'>
                                     <div className="cafe_img">
@@ -30,7 +30,7 @@ function getPath( path ){
 
                                         <div className='cafeName'><p id='p1'><h4 className='H4'>{data.cafeName}</h4></p>
                                             <p id='p2'>{data.subtitle}</p>
-                                            < p id='p3'>{data.address}</p>
+                                            <p id='p3'>{data.address}</p>
                                         </div>
                                         <div className='ratings'>< p id='p4'>{data.ratings}</p></div>
                                     </div>
