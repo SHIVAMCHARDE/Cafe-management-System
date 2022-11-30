@@ -20,6 +20,7 @@ import CafeProfile from './Pages/CafeProfile/CafeProfile';
 import Orders from './Pages/Orders/Orders';
 import Dummy from './Pages/CafeProfile/Dummy';
 import CafeSearch from './Pages/CafeSearch/CafeSearch';
+import CafeForm from './Pages/CafeForm/CafeForm';
 
 
 function App() {
@@ -47,6 +48,8 @@ function App() {
         <Route exact path='/CafePage' element={<CafePage/>} />
         <Route exact path='/Search' element={<CafeSearch />} />
         <Route exact path='/dummy' element={<Dummy />} />
+        <Route exact path='/CafeForm' element={<CafeForm />} />
+        
       </Routes>
     </>
   );

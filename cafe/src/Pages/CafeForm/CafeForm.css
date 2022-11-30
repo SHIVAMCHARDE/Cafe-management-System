@@ -1,0 +1,85 @@
+.RegisterHeading {
+    font-style: Poppins;
+    font-size: 23px;
+    font-weight: 600;
+    line-height: 18px;
+    letter-spacing: 0.05em;
+    text-align: left;
+    color: #7879F1;
+    padding-bottom: 30px;
+    padding-top: 20px;
+}
+.InputCafe_Name{
+    height: 22px;
+    border-bottom-color: #7879F1;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+}
+.Subtitle{
+    padding-top: 24px;
+}
+#SubTitle{
+    height: 22px;
+    border-bottom-color: #7879F1;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+
+}
+
+.CafeFormCon {
+    padding: 9px;
+}
+
+.CafeInfoCon {
+    display: flex;
+}
+
+.CafePic_Name_con {
+    display: flex;
+}
+
+.ImgCafeForm {
+    height: 96px;
+    border: 2px solid black;
+    width: 110px;
+    
+}
+
+.CafeAddCity {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-left: 35px;
+    padding-top: 6px;
+}
+
+.InputAdd {
+    width: 304px;
+    height: 20px;
+    border-bottom-color: #7879F1;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+}
+
+.InputCity {
+    width: 304px;
+    height: 20px;
+    border-bottom-color: #7879F1;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+}
+
+.AddCity {
+    padding-top: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.City
+{padding-top: 19px;
+
+}

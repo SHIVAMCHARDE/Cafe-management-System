@@ -17,12 +17,8 @@ const Search = (data) => {
           <CafeCard data={Sdata} />
         </div>
       </div>
-        
-
 
       }
-
-
     </>
   )
 }
