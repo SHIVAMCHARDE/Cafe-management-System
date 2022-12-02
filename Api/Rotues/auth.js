@@ -1,12 +1,12 @@
 const router = require("express").Router()
-const User = require("../Module/User")
+const User = require("../Models/User")
 const CryptoJS = require("crypto-js")
 const crypto = require('crypto') //For Hashing
 const dotenv = require("dotenv")
 dotenv.config()
 const jwt = require('jsonwebtoken')
 var nodemailer = require('nodemailer');
-const { create } = require("../Module/User")
+const { create } = require("../Models/User")
 const verify = require('../verifyToken')
 
 var transporter = nodemailer.createTransport({

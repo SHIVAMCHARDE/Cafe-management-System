@@ -1,4 +1,5 @@
 import React from 'react'
+import './CafeCard.css'
 
 function getPath(path) {
     return path.split('public')[1]
@@ -25,7 +26,7 @@ export default function CafeCard({data}) {
 
                 <div className='img_card_con'>
                     <div className="cafe_img">
-                        <img src={getPath(data.profileImg)} alt='' />
+                        <img src={getPath(data.profileImg)} alt='' width='100%' />
                     </div>
                     <div className="info">
 

@@ -1,6 +1,6 @@
 const router = require("express").Router()
-const Cafe = require("../Module/Cafe")
-const User = require("../Module/User")
+const Cafe = require("../Models/Cafe")
+const User = require("../Models/User")
 const verify = require('../verifyToken')
 const multer = require('multer')
 

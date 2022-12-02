@@ -7,6 +7,7 @@ const cors = require("cors");
 
 const authRoute = require("../Api/Rotues/auth")
 const cafeRoute = require("../Api/Rotues/cafe")
+const menuRoute = require("../Api/Rotues/menu")
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.use(cookiePasrser())
 
 app.use("/auth" , authRoute)
 app.use("/cafe" , cafeRoute)
+app.use("/menu" , menuRoute)
 
 app.listen( 6969 , ()=>{
     console.log( "Backend Server is Running" );

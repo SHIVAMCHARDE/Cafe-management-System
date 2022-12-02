@@ -11,7 +11,7 @@ import { acitionCreators } from '../../States/index'
 import { useNavigate } from 'react-router-dom'
 
 export default function CafeProfile() {
-
+     
     // navigator.geolocation.getCurrentPosition((loc)=>{console.log(loc)} , (e)=>{console.log(e)})
 
     const cafeCardContainer = useRef()
