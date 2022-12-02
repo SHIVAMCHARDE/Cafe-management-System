@@ -16,7 +16,7 @@ const storage = multer.diskStorage({ // notice you are calling the multer.diskSt
 const upload = multer({ storage: storage })
 
 
-router.post('/registerCafe', upload.single('image') , verify ,async (req, res) => {
+router.post('/registerCafe', upload.single('image')  ,async (req, res) => {
 
     const data = JSON.parse(req.body.data)
 

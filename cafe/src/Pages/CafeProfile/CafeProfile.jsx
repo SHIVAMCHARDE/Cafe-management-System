@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { createRoot } from 'react-dom/client'
-import { useState, useEffect , useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import CafeCard from '../../Components/CafeCard/CafeCard'
 import { setIsLogged } from '../../States/action-creators/index'
@@ -11,12 +11,13 @@ import { acitionCreators } from '../../States/index'
 import { useNavigate } from 'react-router-dom'
 
 export default function CafeProfile() {
-     
+
     // navigator.geolocation.getCurrentPosition((loc)=>{console.log(loc)} , (e)=>{console.log(e)})
 
     const cafeCardContainer = useRef()
-
     const [cafeInfo, setCafeInfo] = useState()
+
+    const menuContainer = useRef()
 
     const id = (window.location.href).split('?')[1]
     console.log(id)
@@ -49,7 +50,7 @@ export default function CafeProfile() {
         root.render(<CafeCard data={cafeInfo} />)
 
     }, [cafeInfo])
-    
+
 
 
     return (
@@ -59,6 +60,9 @@ export default function CafeProfile() {
             </div>
             <p>Menu</p>
             <hr />
+            <div className="menuContainer" ref={menuContainer}>
+
+            </div>
         </>
     )
 }

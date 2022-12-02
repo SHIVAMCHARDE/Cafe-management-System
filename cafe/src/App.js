@@ -16,6 +16,7 @@ import Orders from './Pages/Orders/Orders';
 import Dummy from './Pages/CafeProfile/Dummy';
 import CafeSearch from './Pages/CafeSearch/CafeSearch';
 import CafeForm from './Pages/CafeForm/CafeForm';
+import DishCard from './Components/DishCard/DishCard';
 
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
 
   return (
     <>
-      <Routes>
+      {/* <Routes>
       
         <Route exact path='/' element={  user.isAuthenticated ? <CafeSearch/> : <Login/>  }  /> :
 
@@ -47,7 +48,8 @@ function App() {
         <Route exact path='/dummy' element={<Dummy />} />
         <Route exact path='/CafeForm' element={<CafeForm />} />
         
-      </Routes>
+      </Routes> */}
+      <DishCard/>
     </>
   );
 }

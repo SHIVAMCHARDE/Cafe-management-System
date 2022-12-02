@@ -16,7 +16,7 @@ const storage = multer.diskStorage({ // notice you are calling the multer.diskSt
 const upload = multer({ storage: storage })
 
 
-router.post('/addNewDish', upload.single('image'), verify, async (req, res) => {
+router.post('/addNewDish', upload.single('image'), async (req, res) => {
 
     const data = JSON.parse(req.body.data)
 
@@ -68,16 +68,38 @@ router.post('/addNewDish', upload.single('image'), verify, async (req, res) => {
 
 })
 
-router.post( '/deleteDish' , verify, async(req,res)=>{
+router.post('/deleteDish', upload.single('image'), async (req, res) => {
 
-    const data = req.body.data
-    console.log(data)
+    const data = JSON.parse(req.body.data)
+    console.log(data);
 
-    try{
+    try {
+
 
         const dish = await Dish.findById(data.id)
+        const cafeId = dish.cafe
+        let dishId = dish._id
 
-    }catch(e){ }
+        const cafe = await Cafe.findById(cafeId)
+        let dishes = cafe.dishes
+
+        const index = dishes.indexOf(dishId);
+        if (index > -1) { // only splice array when item is found
+            dishes.splice(index, 1); // 2nd parameter means remove one item only
+        }
+        
+        await Cafe.findByIdAndUpdate({ _id : cafeId }, { $set: { dishes: dishes } })
+
+        dish.remove()
+
+        res.json('Dish Deleted Successfully')
+
+
+    } catch (e) {
+        console.log(e);
+        res.json("error occured during deleting Dish Item")
+
+    }
 
 
 

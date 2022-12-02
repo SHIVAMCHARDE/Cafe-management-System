@@ -53,7 +53,6 @@
 .menu-card-con{
     display: flex;
     flex-direction: row;
-    border: solid black;
 }
 .Dish-name > p {
     font-family: 'Poppins';
