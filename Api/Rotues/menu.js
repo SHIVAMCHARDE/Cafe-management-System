@@ -71,7 +71,6 @@ router.post('/addNewDish', upload.single('image'), async (req, res) => {
 router.post('/deleteDish', upload.single('image'), async (req, res) => {
 
     const data = JSON.parse(req.body.data)
-    console.log(data);
 
     try {
 
@@ -87,12 +86,33 @@ router.post('/deleteDish', upload.single('image'), async (req, res) => {
         if (index > -1) { // only splice array when item is found
             dishes.splice(index, 1); // 2nd parameter means remove one item only
         }
-        
-        await Cafe.findByIdAndUpdate({ _id : cafeId }, { $set: { dishes: dishes } })
+
+        await Cafe.findByIdAndUpdate({ _id: cafeId }, { $set: { dishes: dishes } })
 
         dish.remove()
 
         res.json('Dish Deleted Successfully')
+
+
+    } catch (e) {
+        console.log(e);
+        res.json("error occured during deleting Dish Item")
+
+    }
+
+
+
+})
+
+router.post('/getDish', async (req, res) => {
+
+    const id = req.body.id
+    console.log(id)
+
+    try {
+
+        const dish = await Dish.findById(id)
+        res.json(dish)
 
 
     } catch (e) {

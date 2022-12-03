@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { acitionCreators } from '../../States/index'
 import { useNavigate } from 'react-router-dom'
+import DishCard from '../../Components/DishCard/DishCard'
 
 export default function CafeProfile() {
 
@@ -48,6 +49,22 @@ export default function CafeProfile() {
 
         const root = createRoot(cafeCardContainer.current)
         root.render(<CafeCard data={cafeInfo} />)
+        
+        const menuRoot = createRoot(menuContainer.current)
+        
+        try{
+
+            let dishes = []
+            
+            for (const key in cafeInfo.dishes) {
+                dishes.push(<DishCard data={ cafeInfo.dishes[key] } />)
+            }
+
+            menuRoot.render(dishes)
+
+
+        }catch(e){}
+
 
     }, [cafeInfo])
 

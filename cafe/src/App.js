@@ -31,7 +31,7 @@ function App() {
 
   return (
     <>
-      {/* <Routes>
+      <Routes>
       
         <Route exact path='/' element={  user.isAuthenticated ? <CafeSearch/> : <Login/>  }  /> :
 
@@ -48,8 +48,7 @@ function App() {
         <Route exact path='/dummy' element={<Dummy />} />
         <Route exact path='/CafeForm' element={<CafeForm />} />
         
-      </Routes> */}
-      <DishCard/>
+      </Routes>
     </>
   );
 }

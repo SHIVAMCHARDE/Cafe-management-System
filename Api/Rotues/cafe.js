@@ -74,7 +74,7 @@ router.get( '/getCafeDetails' , async( req,res) =>{
 
     const id = req.query.id
     const table = req.query.table
-    console.log(table)
+    console.log(id)
 
     try{
 
