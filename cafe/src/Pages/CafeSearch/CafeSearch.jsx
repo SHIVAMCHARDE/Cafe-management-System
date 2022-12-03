@@ -59,15 +59,13 @@ const CafeSearch = () => {
 
     return (
         <>
-            {
-                <div>
+                <section>
                     <SearchBar />
                     
                     <div ref={cardContainer}>
                     </div>
 
-                </div>
-            }
+                </section>
         </>
     )
 }

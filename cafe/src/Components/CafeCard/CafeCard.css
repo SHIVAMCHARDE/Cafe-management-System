@@ -1,99 +1,118 @@
-.cafe_card{
-    /* border: 2px solid black; */
-    height: 255px;
+.cafe_card {
+
+    height: max-content;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 16px 16px;
+    background-color: #F7F7F7;
+    margin-top: 24px;
+    border-radius: 8px;
+
 }
-.card_container{
+
+#btnMenu{
+    cursor: pointer;
+    color: #A5A6F6;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.card_container {
     margin-top: -25px;
 }
-.img_card_con{
+
+.img_card_con {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
+    width: 100%;
 }
-.cafe_img{
-    border: 2px solid rgb(204, 46, 46);
+
+.cafe_img {
+
     width: 33%;
-    height: 123px;
-    margin: 9px;
-    border-radius: 7px;
+    margin: 0 24px 16px 0;
+    border-radius: 4px;
 
 }
 
-.info{
-    margin: 0px;
-    padding: 0px;
+.info {
+    width: 67%;
     display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     flex-direction: column;
-   
+
 }
 
-
-.cafeName{
-    /* border: 2px solid rgb(81, 158, 73); */
+.cafeName> p {
     margin: 0px;
     padding: 0px;
+    margin-bottom: 5px;
+}
+
+.cafeName > p:first-child{
+    font-size: 24px;
+    color: #3E3E3E;
+    font-weight: 600;
+}
+
+.cafeName > p:nth-child(2) , .cafeName > p:nth-child(3){
+    font-size: 12px;
+    color: #A5A6F6;
+    font-weight: 500;
+}
+
+.cafeName > p:nth-child(3){
+    color: #9D9D9D;
 }
 
 
-.foodType{
+.foodType {
     /* border: 2px solid rgb(24, 134, 212); */
     margin: 0px;
     padding: 0px;
 }
-.address{
+
+.address {
     /* border: 2px solid rgb(206, 109, 241); */
     margin: 0px;
     padding: 0px;
 }
-.ratings{
+
+.ratings {
     /* border: 2px solid rgb(238, 111, 111); */
     margin: 0px;
     padding: 0px;
 }
-#p1{
-    font-family: 'Poppins';
-    font-size: medium;
-    font-size: 24px;
-    margin: 0px;
-}
-#p2{
-    font-family: 'Poppins';
-    font-size:small;
-    color:  #A5A6F6;
-    
-    
-}
-#p3{
-    font-family: 'Poppins';
-    font-size: small;
-    color:  #9D9D9D;
-    margin: 0;
-   
-}
-#p4{
-    font-family: 'Poppins';
-    font-size: small;
-}
-.menu{
+
+
+.menu {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
+.likeIcon {
 
-#btnMenu{
-    text-decoration: none;
-    border-style: none;
-    width: 267px;
-    height: 40px;
-    background-color: rgb(72 75 255 / 22%);
-    color: rgb(85, 85, 223);
-    border-radius: 9px;  
+    width: 24px;
+    padding: 9px 10px;
+    border: 2px solid rgba(165, 166, 246, 0.52);
+    border-radius: 4px;
+    margin-right: 16px;
+    cursor: pointer;
+
 }
 
-  .H4{
-    margin: 0px;
-  }
+.menu>button {
+
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    color: #A5A6F6;
+    background-color: rgba(165, 166, 246, 0.22);
+
+}
+

@@ -1,7 +1,7 @@
 import React from 'react'
 import '../Login/Login.css'
 import axios from 'axios'
-import backIcon from '../../Assets/logo_btn.png'
+import backIcon from '../../Assets/Icons/arrow-left.svg'
 import { setIsLogged } from '../../States/action-creators/index'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'

@@ -1,11 +1,21 @@
 import React from 'react'
 import './CafeCard.css'
+import heartIcon from '../../Assets/Icons/heartIcon.svg';
+import heartIconFilled from '../../Assets/Icons/heartIconFilled.svg';
+import Rating from '@mui/material/Rating';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
+import { useState } from 'react';
 
 function getPath(path) {
+
     return path.split('public')[1]
 }
 
-export default function CafeCard({data}) {
+export default function CafeCard({ data }) {
+
+
+    const [liked, setLiked] = useState(false)
 
     console.log(data);
     // address :  "Karla Chowk, Wardha."
@@ -20,33 +30,37 @@ export default function CafeCard({data}) {
     // _id : "638334b867d5a202f25f15cc"
 
     return (
-
+        
         <>
-            <div className="cafe_card border" onClick={() => { window.location.href = `/profile?id=${data._id}` }} >
+            <div className="cafe_card "  >
 
                 <div className='img_card_con'>
-                    <div className="cafe_img">
-                        <img src={getPath(data.profileImg)} alt='' width='100%' />
-                    </div>
+
+                        <img className="cafe_img" src={getPath(data.profileImg)} alt='' width='100%'  />
+
                     <div className="info">
 
-                        <div className='cafeName'><p id='p1'><h4 className='H4'>{data.cafeName}</h4></p>
-                            <p id='p2'>{data.subtitle}</p>
-                            <p id='p3'>{data.address}</p>
+                        <div className='cafeName'>
+                            <p>{data.cafeName}</p>
+                            <p>{data.subtitle}</p>
+                            <p>{data.address}</p>
                         </div>
-                        <div className='ratings'>< p id='p4'>{data.ratings}</p></div>
+
+                        <Rating sx={{color : '#A5A6F6' , borderRadius: '2px'}}  precision={0.5} name="read-only" value={3} size="small" readOnly />
                     </div>
                 </div>
 
 
-                <div className="menu">
-                    <div className="like_img"><img src='={require(heart_pic)}' /></div>
-                    <div className="Menu_btn">
-                        <button id='btnMenu' placeholder='Menu'>Menu</button>
-                    </div>
+                <div className="menu ">
+                {!liked && 
+                    <FavoriteBorderIcon sx={{color:'#A5A6F6'}}  className='likeIcon' onClick={()=>{ setLiked(true) }} />
+                }
+                {liked && 
+                    <Favorite sx={{color:'#A5A6F6'}}  className='likeIcon' onClick={()=>{ setLiked(false) }} />
+                }
+                    <button id='btnMenu' onClick={() => { window.location.href = `/profile?id=${data._id}` }} >Menu</button>
+                    
                 </div>
-
-
             </div>
 
         </>
