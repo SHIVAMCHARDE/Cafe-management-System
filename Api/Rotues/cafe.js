@@ -16,7 +16,7 @@ const storage = multer.diskStorage({ // notice you are calling the multer.diskSt
 const upload = multer({ storage: storage })
 
 
-router.post('/registerCafe', upload.single('image')  ,async (req, res) => {
+router.post('/registerCafe', upload.single('image'), async (req, res) => {
 
     const data = JSON.parse(req.body.data)
 
@@ -24,84 +24,81 @@ router.post('/registerCafe', upload.single('image')  ,async (req, res) => {
     const subtitle = data.subtitle
     const address = data.address
     const city = data.city
-    const coordinates = data.coords
-    const profileImg = req.file.path
+    const profileImg = req.file
     let owner = data.owner
 
+    try {
 
-    let user = req.user
-    let cafe = null
-
-    console.log(coordinates);
-
-    owner = await User.findOne({owner})
-
-    console.log(cafe);
-    try{
-        cafe = await Cafe.findOne({ coordinates })
-    }catch(e){}
-    
-    if( cafe ){
-        return res.json('Cafe Already Exists')
-    }
-
-
-    try{
+        let cafeOwner = await User.findOne({ userName: owner })
 
         const newCafe = new Cafe({
             cafeName,
             subtitle,
             address,
             city,
-            coordinates,
-            profileImg,
-            owner
+            profileImg: profileImg.path,
+            owner: cafeOwner._id
         })
 
         const cafe = await newCafe.save()
 
-        res.json(cafe)
+        try {
 
-    }catch(e){
+            let cafes = cafeOwner.cafes
+            console.log(cafes)
+            cafes.push(cafe._id)
+            console.log(cafes)
+
+            cafeOwner.updateOne({ $set: { cafes: cafes } })
+            cafeOwner.save()
+
+        } catch (e) {
+            console.log(e)
+            return res.json('Cafe did not add to User')
+        }
+
+        res.json(newCafe)
+
+    } catch (e) {
         console.log(e);
-        res.json(e)
+        res.json("Cafe Did not added")
     }
-        
+
 
 })
 
-router.get( '/getCafeDetails' , async( req,res) =>{
+router.get('/getCafeDetails', async (req, res) => {
 
     const id = req.query.id
     const table = req.query.table
     console.log(id)
 
-    try{
+    try {
 
         const cafe = await Cafe.findById(id);
 
-        if( cafe === null ){
+        if (cafe === null) {
             throw new Error()
         }
 
         res.json(cafe)
 
-    }catch(e){
+    } catch (e) {
         console.log(e);
         res.json("Cafe does not exist")
     }
 
 })
 
-router.post( '/getCafes' , async( req,res) =>{
+router.post('/getCafes', async (req, res) => {
 
     const city = req.body.city
 
-    try{
-        const cafes = await Cafe.find({city});
+    try {
+        const cafes = await Cafe.find({ city });
         res.json(cafes)
 
-    }catch(e){
+    } catch (e) {
         console.log(e);
         res.json("Cafe does not exist")
     }

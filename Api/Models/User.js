@@ -5,6 +5,7 @@ const UserSchema = new mongoose.Schema({
     email : { type:String , sparse:true , unique:true},
     userPassword : { type:String , required:true },
     accessToken : { type : String},
+    cafes : [{type: mongoose.Schema.Types.ObjectId , ref:'Cafe'}],
     orders : [{type: mongoose.Schema.Types.ObjectId , ref:'Order'}],
 })
 
