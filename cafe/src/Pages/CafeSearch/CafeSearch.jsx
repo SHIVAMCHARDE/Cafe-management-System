@@ -24,8 +24,6 @@ const CafeSearch = () => {
 
         axios(config)
             .then(function (response) {
-
-                console.log(JSON.stringify(response.data));
                 setSdata(response.data)
             })
             .catch(function (error) {
@@ -60,6 +58,7 @@ const CafeSearch = () => {
     return (
         <>
                 <section>
+
                     <SearchBar />
                     
                     <div ref={cardContainer}>
