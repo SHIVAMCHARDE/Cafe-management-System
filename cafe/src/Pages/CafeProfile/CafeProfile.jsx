@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { createRoot } from 'react-dom/client'
 import { useState, useEffect, useRef } from 'react'
+import './CafeProfile.css'
 
 import CafeCard from '../../Components/CafeCard/CafeCard'
 import { setIsLogged } from '../../States/action-creators/index'
@@ -13,7 +14,6 @@ import DishCard from '../../Components/DishCard/DishCard'
 
 export default function CafeProfile() {
 
-    // navigator.geolocation.getCurrentPosition((loc)=>{console.log(loc)} , (e)=>{console.log(e)})
 
     const cafeCardContainer = useRef()
     const [cafeInfo, setCafeInfo] = useState()
@@ -36,7 +36,6 @@ export default function CafeProfile() {
 
         axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
                 setCafeInfo(response.data)
             })
             .catch(function (error) {
@@ -49,21 +48,23 @@ export default function CafeProfile() {
 
         const root = createRoot(cafeCardContainer.current)
         root.render(<CafeCard data={cafeInfo} />)
-        
+
         const menuRoot = createRoot(menuContainer.current)
-        
-        try{
+
+        try {
 
             let dishes = []
-            
+            let vegDishes = []
+            let nonVegDishes = []
+
             for (const key in cafeInfo.dishes) {
-                dishes.push(<DishCard data={ cafeInfo.dishes[key] } />)
+                    dishes.push(<DishCard data={cafeInfo.dishes[key]} />)
             }
 
             menuRoot.render(dishes)
 
 
-        }catch(e){}
+        } catch (e) { }
 
 
     }, [cafeInfo])
@@ -72,14 +73,16 @@ export default function CafeProfile() {
 
     return (
         <>
-            <div className="cafeCard" ref={cafeCardContainer}>
+            <section>
+                <div className="cafeCard" ref={cafeCardContainer}>
 
-            </div>
-            <p>Menu</p>
-            <hr />
-            <div className="menuContainer" ref={menuContainer}>
+                </div>
+                <p className='Menu-text' >Menu</p>
+                <hr />
+                <div className="menuContainer" ref={menuContainer}>
 
-            </div>
+                </div>
+            </section>
         </>
     )
 }

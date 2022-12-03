@@ -1,0 +1,83 @@
+.menu-card-con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.menu-card-con {
+
+    height: max-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 16px 16px;
+    background-color: #F7F7F7;
+    margin-top: 24px;
+    border-radius: 8px;
+
+}
+
+.menu-card-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.dish_img {
+
+    height: max-content;
+    width: 60%;
+    margin: 0 0 0 24px;
+    border-radius: 4px;
+
+}
+
+.Menu_Card {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.dishName {
+    font-size: 24px;
+    color: #3E3E3E;
+    font-weight: 600;
+}
+
+.dishPrice,
+.dishDesc {
+    font-size: 16px;
+    color: #A5A6F6;
+    font-weight: 500;
+}
+
+.dishDesc {
+    font-size: 12px;
+    color: #9D9D9D;
+    text-align: justify;
+}
+
+.Menu_Card>p {
+    margin: 0;
+}
+
+.price-rate-con {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.AddItem {
+    padding: 6px 50px;
+    border: none;
+    border-radius: 4px;
+    background: rgba(165, 166, 246, 0.22);
+    color: #A5A6F6;
+    margin-top: 16px;
+    width: 100%;
+    cursor: pointer;
+}

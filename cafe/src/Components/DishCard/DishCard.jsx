@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import CafePageData from '../../Pages/CafeProfile/CafePageData'
 import axios from 'axios'
 import { useEffect, useRef } from 'react'
 import { createRoot } from 'react-dom/client'
+import './DishCard.css'
+import Rating from '@mui/material/Rating';
 
 export default function DishCard({ data }) {
 
@@ -38,11 +39,11 @@ export default function DishCard({ data }) {
 
         const root = createRoot(DishContainer.current)
 
-        try{
-            const dishCard = dishComponent(dish) 
+        try {
+            const dishCard = dishComponent(dish)
             root.render(dishCard)
-        }catch(e){}
-        
+        } catch (e) { }
+
     }, [dish])
 
 
@@ -56,35 +57,33 @@ export default function DishCard({ data }) {
     //     "cafe" : "63835f3dca55c421f67e8101"
     // }
 
-    function dishComponent(data){
+    function getPath(path) {
+
+        return path.replaceAll('\\', '/')
+    }
+    function dishComponent(data) {
+
+        console.log(data.profileImg)
 
         return (
             <>
-                <div className="menu-card-info">
+                <div className="menu-card-info ">
                     <div className="Menu_Card">
-                        <div className='Dish-name'>
-                        <p>{data.dishName}</p></div>
 
-                        <div className='price-rate-con'>
-                            <div className='Price'><p>
+                        <p className='dishName' >{data.dishName}</p>
 
-                                {data.price}</p></div>
-                            <div className='Dish-Rating'>
+                        <div className='price-rate-con '>
+                            <p className='dishPrice' >{data.price} Rs /-</p>
+                            <Rating sx={{ color: '#A5A6F6', borderRadius: '2px' }} precision={0.5} name="read-only" value={3} size="small" readOnly />
 
-                                {data.avgRating}  </div>
                         </div>
+                        <p className='dishDesc' >{data.desc}</p>
 
-                        <div className='Dish-Disp'><p>
-
-                            {data.desc}
-                        </p></div>
-                        <div className='AddItem'><button className='Btn-AddItem'>Add Item</button> </div>
+                        <button className='AddItem'>Add Item</button>
                     </div>
                 </div>
-                <div className="menu-img-container">
-                    <img src={data.profileImg} alt="" srcset="" />
-                </div>
 
+                <img src={`/Media/${getPath(data.profileImg)}`} alt="" className='dish_img' />
             </>
         )
 
@@ -94,7 +93,7 @@ export default function DishCard({ data }) {
 
     return (
         <>
-            <div className="menu-card-con" ref={DishContainer} ></div>
+            <div className="menu-card-con " ref={DishContainer} ></div>
         </>
 
     )

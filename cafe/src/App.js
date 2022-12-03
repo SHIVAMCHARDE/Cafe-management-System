@@ -13,7 +13,6 @@ import { acitionCreators } from './States/index'
 import { useNavigate } from 'react-router-dom'
 import CafeProfile from './Pages/CafeProfile/CafeProfile';
 import Orders from './Pages/Orders/Orders';
-import Dummy from './Pages/CafeProfile/Dummy';
 import CafeSearch from './Pages/CafeSearch/CafeSearch';
 import CafeForm from './Pages/CafeForm/CafeForm';
 import DishCard from './Components/DishCard/DishCard';
@@ -45,7 +44,6 @@ function App() {
 
         <Route exact path='/order' element={<Orders />} />
         <Route exact path='/CafePage' element={<CafePage/>} />
-        <Route exact path='/dummy' element={<Dummy />} />
         <Route exact path='/CafeForm' element={<CafeForm />} />
         
       </Routes>
