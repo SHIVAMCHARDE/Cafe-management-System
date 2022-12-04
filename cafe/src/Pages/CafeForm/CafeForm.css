@@ -15,6 +15,7 @@
     border-top-style: none;
     border-right-style: none;
     border-left-style: none;
+    outline: none;
 }
 .Subtitle{
     padding-top: 24px;
@@ -25,7 +26,7 @@
     border-top-style: none;
     border-right-style: none;
     border-left-style: none;
-
+    outline: none;
 }
 
 .CafeFormCon {
@@ -62,6 +63,7 @@
     border-top-style: none;
     border-right-style: none;
     border-left-style: none;
+    outline: none;
 }
 
 .InputCity {
@@ -71,6 +73,7 @@
     border-top-style: none;
     border-right-style: none;
     border-left-style: none;
+    outline: none;
 }
 
 .AddCity {
@@ -82,4 +85,220 @@
 .City
 {padding-top: 19px;
 
+}
+.CafeFormMenu{
+    color: #7879F1;
+    font-size: 17px;
+    font-weight: 640;
+    line-height: 34px;
+    letter-spacing: 0.05em;
+    text-align: left;
+}
+
+.FormCards{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 277px;
+    width: 338px;
+    border: 2px solid black;
+}
+
+
+/* CAFE FORM */
+.Category{
+    /* padding-left: 61px; */
+    font-family: 'Poppins';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0em;
+    color: #A5A6F6;
+}
+.Dish_Name_Input{
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    outline: none;
+    border-bottom-style: none;
+}
+
+#DishName::placeholder{
+font-style: Mukta;
+font-size: 18px;
+font-weight: 600;
+line-height: 36px;
+letter-spacing: 0em;
+color: rgba(62, 62, 62, 1);
+text-align: left;
+}
+
+#Price{
+    margin-top: 21px;
+    font-style: 'Mukta';
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    outline: none;
+    border-bottom-style: none;
+}
+#Category{
+    /* margin-top: 21px; */
+    font-style: 'Mukta';
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    outline: none;
+    padding-bottom: 4px;
+    padding-top: 5px;
+    border-bottom-style: none;
+}
+#desc{
+    font-style: 'Mukta';
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    outline: none;
+    border-bottom-style: none;
+}
+/* css */
+.menu_Heading{
+    font-family: 'Poppins';
+    font-size: medium;
+    font-size: 21px;
+    font-weight: bold;
+    padding: 0px;
+    margin-bottom: 15px;
+    line-height: 24px;
+    margin-top: 0px;
+    color: rgb(102, 102, 226);
+}
+
+.MenuHeading{
+    border-bottom: 2px solid rgba(165, 166, 246, 1)
+}
+
+.MenuSection{
+    display: flex;
+    flex-direction: column
+}
+
+
+
+
+
+/* .btn-Non-Veg {
+    padding-top: 10px
+}; */
+/* .Veg_NonVeg_Container{
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px;
+} */
+/* #btn-Veg{
+    background-color: white;
+    border: 0.5px solid rgba(218, 218, 218, 1);
+    border-radius: 5px;
+}
+.Btn-veg{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+} */
+
+/* MENU CARD */
+.menu-type{
+    color: #7879F1;
+      font-size: 16px;
+    font-weight: 500;
+
+}
+.menu-card-con{
+    display: flex;
+    flex-direction: row;
+    border: solid black;
+    padding: 13px;
+}
+.Dish-name > p {
+    font-family: 'Poppins';
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 36px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin: 1px;
+    color: #3E3E3E;
+
+}
+.menu-card-info{
+    padding: 7px;
+}
+
+.menu-imgContainer{
+    width: 245px;
+    height: 115px;
+    border: solid black;
+    /* margin: 12px; */
+    border-radius: 17px;
+}
+.price-rate-con{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-top: -13px;
+}
+.Dish-Disp>p{
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 13px;
+    letter-spacing: 0em;
+    text-align: justify;
+    color: rgba(157, 157, 157, 1);
+    margin: 1px;
+}
+.Price>p{
+    font-family: 'Poppins';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #A5A6F6;
+}
+.Dish-Rating{
+    padding-left: 61px;
+    font-family: 'Poppins';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0em;
+    color: #A5A6F6;
+}
+.Btn-AddItem{
+    border: none;
+    background: rgba(165, 166, 246, 0.22);
+    color: #5D5FEF;
+    height: 40px;
+    width: 117px;
+    outline: none;
+    border-radius: 11px
+}
+
+/* .Add_Item{
+    border: none;
+    border-radius: 4px;
+    background: rgba(165, 166, 246, 0.22);
+    color: #A5A6F6;
+    margin-top: 16px;
+    width: 100%;
+    cursor: pointer;
+} */
+
+.AddItems{
+    padding-top: 9px;
+}
+
+.DishDesc{
+    outline: none;
+    border: none;
 }
