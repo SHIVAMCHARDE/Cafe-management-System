@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { acitionCreators } from '../../States/index'
 import { useNavigate } from 'react-router-dom'
+import SearchBar from '../../Components/SearchBar/SearchBar'
 
 export default function Orders() {
 
@@ -19,7 +20,9 @@ export default function Orders() {
 
   return (
 
-    <div>Orders</div>
+    <>
+      <SearchBar/>
+    </>
 
   )
 }

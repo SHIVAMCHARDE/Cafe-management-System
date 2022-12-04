@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client'
 import './DishCard.css'
 import Rating from '@mui/material/Rating';
 
-export default function DishCard({ data }) {
+export default function DishCard({ data , DishId }) {
 
     const [dish, setDish] = useState()
     const DishContainer = useRef()
@@ -45,7 +45,15 @@ export default function DishCard({ data }) {
 
     }, [dish])
 
+    function returnDishId(e){
 
+        const element = e.target
+        element.innerHTML === "Add Item" ? element.innerHTML = "Remove Item" : element.innerHTML = "Add Item"
+
+        try{
+            DishId(dish._id)
+        }catch(e){}
+    }
 
     // {
     //     "dishName" : "Masala Dosa",
@@ -76,7 +84,7 @@ export default function DishCard({ data }) {
                         </div>
                         <p className='dishDesc' >{data.desc}</p>
 
-                        <button className='AddItem'>Add Item</button>
+                        <button className='AddItem' onClick={(e)=>{returnDishId(e)}} >Add Item</button>
                     </div>
                 </div>
 

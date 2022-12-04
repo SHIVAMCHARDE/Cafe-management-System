@@ -72,11 +72,11 @@
 }
 
 .AddItem {
-    padding: 6px 50px;
+    padding: 8px 0px;
     border: none;
     border-radius: 4px;
-    background: rgba(165, 166, 246, 0.22);
-    color: #A5A6F6;
+    color: rgb(255, 255, 255);
+    background: #A5A6F6;
     margin-top: 16px;
     width: 100%;
     cursor: pointer;

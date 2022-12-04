@@ -19,11 +19,11 @@ export default function CafeProfile() {
 
     const cafeCardContainer = useRef()
     const [cafeInfo, setCafeInfo] = useState()
+    const [orderList, setOrderList] = useState([])
 
     const menuContainer = useRef()
 
     const id = (window.location.href).split('?')[1]
-    console.log(id)
 
     useEffect(() => {
 
@@ -60,7 +60,7 @@ export default function CafeProfile() {
             let nonVegDishes = []
 
             for (const key in cafeInfo.dishes) {
-                dishes.push(<DishCard data={cafeInfo.dishes[key]} />)
+                dishes.push(<DishCard data={cafeInfo.dishes[key]} DishId={getVal} />)
             }
 
             menuRoot.render(dishes)
@@ -71,7 +71,34 @@ export default function CafeProfile() {
 
     }, [cafeInfo])
 
+    function getVal(path) {
+        addToList(path)
+    }
 
+    function addToList(DishId) {
+        try {
+
+            let list = orderList
+            if (!list.includes(DishId)) {
+                list.push(DishId)
+            } else {
+                var index = list.indexOf(DishId);
+                if (index !== -1) {
+                    list.splice(index, 1);
+                }
+            }
+            console.log(list)
+            setOrderList(list)
+
+        } catch (e) { }
+    }
+
+    function orderItem(){
+
+        localStorage.setItem('orderList' , orderList)
+        window.location.href = '/order'
+
+    }
 
     return (
         <>
@@ -85,8 +112,8 @@ export default function CafeProfile() {
 
                 </div>
 
-                <div onClick={()=>{console.log("Nice")}} >
-                    <FloatingNav text={'Order'} icon={orderIcon} />
+                <div  onClick={ ()=>{orderItem()} } >
+                    <FloatingNav text={'Order'} icon={orderIcon}  />
                 </div>
 
             </section>
