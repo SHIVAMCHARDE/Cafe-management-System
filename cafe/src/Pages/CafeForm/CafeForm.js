@@ -1,5 +1,6 @@
 import React from 'react'
 import './CafeForm.css'
+import CafeFormCard from './CafeFormCard.js'
 
 export default function CafeForm() {
     return (
@@ -28,6 +29,14 @@ export default function CafeForm() {
                 <div className="City">
                 <input placeholder='City' className='InputCity'/>
                 </div>
+            </div>
+            <div className="CafeFormMenu">
+                <p>Menu</p>
+            </div>
+           
+            <div className="FormCards">
+                {/* Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi possimus aspernatur, unde inventore eveniet ab itaque aliquam laboriosam accusantium praesentium sunt dignissimos. Reprehenderit cum voluptatibus expedita corrupti. Esse voluptate pariatur nemo odit omnis tempore aperiam nihil, fugit numquam eligendi id consectetur dolore aut deleniti nam eaque dicta incidunt saepe cumque quis. Officiis, nihil aspernatur culpa similique repellat modi? At libero iusto adipisci accusantium nihil fugiat. Temporibus, enim. */}
+                <CafeFormCard/>
             </div>
         </div>
     )
