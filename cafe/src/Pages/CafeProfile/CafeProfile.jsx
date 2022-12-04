@@ -3,6 +3,7 @@ import axios from 'axios'
 import { createRoot } from 'react-dom/client'
 import { useState, useEffect, useRef } from 'react'
 import './CafeProfile.css'
+import orderIcon from '../../Assets/Icons/orderIcon.svg'
 
 import CafeCard from '../../Components/CafeCard/CafeCard'
 import { setIsLogged } from '../../States/action-creators/index'
@@ -11,6 +12,7 @@ import { bindActionCreators } from 'redux'
 import { acitionCreators } from '../../States/index'
 import { useNavigate } from 'react-router-dom'
 import DishCard from '../../Components/DishCard/DishCard'
+import FloatingNav from '../../Components/FloatingNav/FloatingNav'
 
 export default function CafeProfile() {
 
@@ -47,7 +49,7 @@ export default function CafeProfile() {
     useEffect(() => {
 
         const root = createRoot(cafeCardContainer.current)
-        root.render(<CafeCard data={cafeInfo} />)
+        root.render(<CafeCard data={cafeInfo} cafeProfile={true} />)
 
         const menuRoot = createRoot(menuContainer.current)
 
@@ -58,7 +60,7 @@ export default function CafeProfile() {
             let nonVegDishes = []
 
             for (const key in cafeInfo.dishes) {
-                    dishes.push(<DishCard data={cafeInfo.dishes[key]} />)
+                dishes.push(<DishCard data={cafeInfo.dishes[key]} />)
             }
 
             menuRoot.render(dishes)
@@ -82,6 +84,11 @@ export default function CafeProfile() {
                 <div className="menuContainer" ref={menuContainer}>
 
                 </div>
+
+                <div onClick={()=>{console.log("Nice")}} >
+                    <FloatingNav text={'Order'} icon={orderIcon} />
+                </div>
+
             </section>
         </>
     )

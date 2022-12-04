@@ -1,0 +1,27 @@
+.orderNav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 24px;
+    width: 100%;
+    max-width: 360px;
+    cursor: pointer;
+}
+
+.orderBtn{
+    background-color: #4A4A4A;
+    padding : 8px 16px 8px 16px;
+    border-radius: 20px;
+    color: white;
+}
+
+.orderBtn > img{
+    margin-left: 8px;
+    width: 12px;
+    height: 12px;
+}
+
+.orderBtn > span{
+    font-size: 16px;
+}

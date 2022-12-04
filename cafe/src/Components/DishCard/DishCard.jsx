@@ -24,7 +24,6 @@ export default function DishCard({ data }) {
 
         axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
                 setDish(response.data)
 
             })
@@ -62,8 +61,6 @@ export default function DishCard({ data }) {
         return path.replaceAll('\\', '/')
     }
     function dishComponent(data) {
-
-        console.log(data.profileImg)
 
         return (
             <>
