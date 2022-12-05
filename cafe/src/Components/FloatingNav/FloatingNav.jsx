@@ -22,7 +22,7 @@ export default function FloatingNav(props) {
 
         <>
             <div className="orderNav" >
-                <div className="orderBtn " onClick={() => { orderItem() }}>
+                <div className="orderBtn " onClick={() => {  if(props.text === 'Order') (orderItem()) }}>
                     <span>{props.text}</span>
                     <img src={props.icon} alt="" />
 

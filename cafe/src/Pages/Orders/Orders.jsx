@@ -68,6 +68,27 @@ export default function Orders() {
   }, [])
 
 
+  useEffect(() => {
+
+
+    if (orders !== undefined) {
+
+      let amount = 0
+
+      try {
+
+
+        JSON.parse(orderRef.current).forEach(ele => {
+          amount += ele.price
+        })
+
+        setTotalAmount(amount)
+      } catch (e) { }
+    }
+
+
+  }, [orders])
+
   function getVal(values) {
 
     let list = JSON.parse(orderRef.current)
@@ -87,29 +108,54 @@ export default function Orders() {
 
   }
 
+  const loadScript = (src) => {
+    return new Promise((resovle) => {
+      const script = document.createElement("script");
+      script.src = src;
 
-  useEffect(() => {
+      script.onload = () => {
+        resovle(true);
+      };
 
+      script.onerror = () => {
+        resovle(false);
+      };
 
-    if (orders !== undefined) {
+      document.body.appendChild(script);
+    });
+  };
 
-      let amount = 0
+  async function displayRazorpay(amount) {
+    const script = document.createElement("script");
 
-      try{
+    const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js")
 
-
-      JSON.parse(orderRef.current).forEach(ele => {
-        amount += ele.price
-      })
-
-      setTotalAmount(amount)
-    }catch(e){}
+    if (!res) {
+      alert("You are offline... Failed to load Razorpay SDK");
+      return;
     }
 
+    const options = {
+      key: "rzp_test_3E1BxGvOlZaNIf",
+      currency: "INR",
+      amount: amount*100,
+      name: "Cafe Managment System",
+      description: "Thanks for purchasing",
+      image:
+        "https://mern-blog-akky.herokuapp.com/static/media/logo.8c649bfa.png",
 
-  }, [orders])
+      handler: function (response) {
+        console.log(response.razorpay_payment_id);
+        alert("Payment Successfully");
+      },
+      prefill: {
+        name: "Cafe Managment System",
+      },
+    };
 
-
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
 
   return (
 
@@ -139,8 +185,10 @@ export default function Orders() {
           <p>{totalAmount} Rs/-</p>
         </div>
 
-        <div  >
-          <FloatingNav text={'Pay'} icon={CreditCard}/>
+        <div onClick={() => {
+          displayRazorpay(totalAmount);
+        }} >
+          <FloatingNav text={'Pay'} icon={CreditCard} />
         </div>
 
       </section>

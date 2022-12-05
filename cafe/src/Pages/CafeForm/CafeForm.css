@@ -215,7 +215,7 @@ text-align: left;
 .menu-card-con{
     display: flex;
     flex-direction: row;
-    border: solid black;
+    /* border: solid black; */
     padding: 13px;
 }
 .Dish-name > p {
