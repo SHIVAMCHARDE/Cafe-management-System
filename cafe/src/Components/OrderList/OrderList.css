@@ -1,0 +1,56 @@
+.orderListContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 24px;
+    /* padding: 0px 24px; */
+}
+
+.btn {
+    width: 90px;
+    height: 60px;
+    background: rgba(165, 166, 246, 0.22);
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: 700;
+    color: #5D5FEF;
+}
+
+.orderListContainer > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.orderListContainer > div > p {
+    font-family: 'Mukta';
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0;
+}
+
+
+
+.AmountAndQty{
+
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    font-family: 'Mukta';
+    font-weight: 600;
+    font-size: 16px;
+    color: #A5A6F6;
+    margin: 0;
+}
+
+.AmountAndQty > p{
+    margin: 0;
+}

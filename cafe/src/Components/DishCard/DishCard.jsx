@@ -51,7 +51,7 @@ export default function DishCard({ data , DishId }) {
         element.innerHTML === "Add Item" ? element.innerHTML = "Remove Item" : element.innerHTML = "Add Item"
 
         try{
-            DishId(dish._id)
+            DishId({id : dish._id , name : dish.dishName , price : dish.price  , qty:1})
         }catch(e){}
     }
 

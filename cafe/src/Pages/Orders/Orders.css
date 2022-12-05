@@ -1,0 +1,40 @@
+.cafeInfo > p:first-child {
+    font-family: 'Mukta';
+    font-weight: 500;
+    font-size: 24px;
+    color: #3E3E3E;
+    margin: 16px 0px 0px 0px;
+}
+
+.orderTable {
+    font-family: 'Mukta';
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0%;
+    color: #7879F1;
+}
+
+.dashedLine{
+    margin-top: 40px;
+}
+
+.total{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding: 8px;
+}
+
+.total > p{
+
+    font-family: 'Mukta';
+    font-weight: 600;
+    font-size: 18px;
+    color: #A5A6F6;
+}
+
+.total > p:nth-child(2){
+    color: #5D5FEF;
+
+}

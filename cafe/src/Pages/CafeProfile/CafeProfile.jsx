@@ -71,34 +71,55 @@ export default function CafeProfile() {
 
     }, [cafeInfo])
 
-    function getVal(path) {
-        addToList(path)
+    function getVal(data) {
+        addToList(data)
     }
 
-    function addToList(DishId) {
+    function addToList(DishData) {
+
         try {
 
             let list = orderList
-            if (!list.includes(DishId)) {
-                list.push(DishId)
+
+            if (list.length === 0) {
+
+                list.push(DishData)
+                console.log(list);
+
+
             } else {
-                var index = list.indexOf(DishId);
-                if (index !== -1) {
-                    list.splice(index, 1);
-                }
+
+
+                list.forEach((element, index) => {
+
+                    if (!(element.id === DishData.id)) {
+
+                        if (index === list.length - 1) {
+                            list.push(DishData)
+                            console.log(list);
+                            setOrderList(list)
+                        }
+
+                    } else {
+
+                        var index = list.indexOf(element);
+                        if (index !== -1) {
+                            list.splice(index, 1);
+                        }
+                        console.log(list);
+                        setOrderList(list)
+                        return list
+                    }
+
+                })
+
             }
-            console.log(list)
-            setOrderList(list)
+
 
         } catch (e) { }
     }
 
-    function orderItem(){
 
-        localStorage.setItem('orderList' , orderList)
-        window.location.href = '/order'
-
-    }
 
     return (
         <>
@@ -112,8 +133,8 @@ export default function CafeProfile() {
 
                 </div>
 
-                <div  onClick={ ()=>{orderItem()} } >
-                    <FloatingNav text={'Order'} icon={orderIcon}  />
+                <div  >
+                    <FloatingNav text={'Order'} icon={orderIcon} orderList={orderList} cafeInfo={cafeInfo} />
                 </div>
 
             </section>

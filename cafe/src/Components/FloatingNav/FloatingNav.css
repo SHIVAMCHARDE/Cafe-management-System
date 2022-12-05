@@ -4,7 +4,9 @@
     align-items: center;
     position: fixed;
     bottom: 24px;
-    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
     max-width: 360px;
     cursor: pointer;
 }
