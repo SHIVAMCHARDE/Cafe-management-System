@@ -14,6 +14,7 @@ router.post('/addOrder', async (req, res) => {
     const cafe = req.body.cafe
     const transactionId = req.body.transactionId
     const date = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`
+    const time = `${today.getHours()}:${today.getMinutes()}`
     const isPaid = req.body.isPaid
     const data = req.body.data
     const discount = req.body.discount
@@ -24,6 +25,7 @@ router.post('/addOrder', async (req, res) => {
         cafe,
         transactionId,
         date,
+        time,
         isPaid,
         data,
         discount,
