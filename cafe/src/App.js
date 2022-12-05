@@ -16,6 +16,7 @@ import Orders from './Pages/Orders/Orders';
 import CafeSearch from './Pages/CafeSearch/CafeSearch';
 import CafeForm from './Pages/CafeForm/CafeForm';
 import DishCard from './Components/DishCard/DishCard';
+import PaymentSuceessPage from './Pages/PaymentSuceessPage/PaymentSuceessPage';
 
 
 function App() {
@@ -45,6 +46,8 @@ function App() {
         <Route exact path='/order' element={<Orders />} />
         <Route exact path='/CafePage' element={<CafePage/>} />
         <Route exact path='/CafeForm' element={<CafeForm />} />
+
+        <Route exact path='/paymentSuccess' element={<PaymentSuceessPage />} />
         
       </Routes>
     </>
