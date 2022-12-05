@@ -146,7 +146,10 @@ export default function Orders() {
 
       handler: function (response) {
         console.log(response.razorpay_payment_id);
-        alert("Payment Successfully");
+
+        
+
+        window.location.href = '/paymentSuccess'
       },
       prefill: {
         name: "Cafe Managment System",
