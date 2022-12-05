@@ -1,0 +1,103 @@
+.OrderCards_Container{
+    height: fit-content;
+    border: 1px solid black;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    background: linear-gradient(-45deg, #a785ef, #b6ece4, #e7bae5, #778bf0);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.ChefPageCon{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3%;
+}
+.PTblNo{
+    margin: 0px;
+    padding: 0px;
+    color: #3E3E3E;
+    font-weight: 800;
+}
+.PItemName{
+    margin: 2px;
+    padding-top: 7px;
+   
+    color: #8f88dc;
+    font-weight: 640;
+}
+.POders{
+
+    color: #3E3E3E;
+    font-weight: 640;
+    margin: 0px;
+}
+.PItemQty{
+    margin: 0px;
+    padding: 0px;
+}
+.POrderTime{
+    margin: 0px;
+    padding: 0px;
+    color: #9a98a8;
+    font-weight: 640;
+}
+.PBtnServed{
+    margin: 0px;
+    padding: 0px;
+}
+.OrderCards_Container >p{
+    margin: 0px;
+    padding: 0px;
+}
+
+.BtnServed>button{
+    border: none;
+    /* padding-top: 4px; */
+    background: rgba(165, 166, 246, 0.22);
+    color: #5D5FEF;
+    font-weight: bold;
+    height: 29px;
+    width: 126px;
+    outline: none;
+    border-radius: 11px;
+}    
+.ItemName{
+
+    display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+}
+.OrderTime{
+
+    padding-top: 4px;
+}
+.BtnServed{
+
+    padding-top: 11px;
+}
+.OrderHeading{
+
+    color: #8182ed;
+        font-size: 20px;
+        font-weight: 700;
+        padding-left: 26%;
+        padding-right: 19%;
+}
