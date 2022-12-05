@@ -12,6 +12,7 @@ router.post('/addOrder', async (req, res) => {
 
     const user = req.body.user
     const cafe = req.body.cafe
+    const transactionId = req.body.transactionId
     const date = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`
     const isPaid = req.body.isPaid
     const data = req.body.data
@@ -21,6 +22,7 @@ router.post('/addOrder', async (req, res) => {
     let newOrder = new Order({
         user,
         cafe,
+        transactionId,
         date,
         isPaid,
         data,

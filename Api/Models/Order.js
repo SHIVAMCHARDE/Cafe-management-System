@@ -4,6 +4,7 @@ const OrderSchema = new mongoose.Schema({
 
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     cafe: { type: mongoose.Schema.Types.ObjectId, ref: 'Cafe' },
+    transactionId: { type: String , required:true },
     date: { type: Date, required: true },
     isPaid: { type: Boolean, required: true },
     data: [{ type: Object, required: true }],

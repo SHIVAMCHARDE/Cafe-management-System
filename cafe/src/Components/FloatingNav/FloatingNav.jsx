@@ -10,10 +10,10 @@ export default function FloatingNav(props) {
         let table = (window.location.href).split('table=')[1]
 
         if (table) {
-            window.location.href = `/order?name=${props.cafeInfo.cafeName}&table=${table}`
+            window.location.href = `/order?id=${props.cafeInfo._id}&name=${props.cafeInfo.cafeName}&table=${table}`
         }
         else {
-            window.location.href = `/order?name=${props.cafeInfo.cafeName}`
+            window.location.href = `/order?id=${props.cafeInfo._id}&name=${props.cafeInfo.cafeName}`
         }
 
     }

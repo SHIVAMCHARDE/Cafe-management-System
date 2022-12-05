@@ -11,11 +11,13 @@ import { createRoot } from 'react-dom/client'
 import OrderList from '../../Components/OrderList/OrderList'
 import CreditCard from '../../Assets/Icons/CreditCard.svg'
 import FloatingNav from '../../Components/FloatingNav/FloatingNav'
+import axios from 'axios'
 
 export default function Orders() {
 
   var [orders, setOrders, orderRef] = useState()
   const [cafeName, setCafeName] = useState()
+  const [cafeId, setCafeId] = useState()
   const [tableNo, setTableNo] = useState()
   const [totalAmount, setTotalAmount] = useState()
   const orderContainer = useRef()
@@ -25,6 +27,8 @@ export default function Orders() {
   const navigate = useNavigate()
 
   const user = useSelector(state => state.User)
+
+  console.log()
 
   if (!user.isAuthenticated) {
     window.location.href = '/login'
@@ -37,15 +41,18 @@ export default function Orders() {
 
     let TableNo = decodeURI((window.location.href).split('table=')[1])
 
-    if (TableNo === undefined) {
+    if (TableNo === 'undefined') {
       setCafeName(decodeURI((window.location.href).split('name=')[1]))
+      setCafeId(((window.location.href).split('=')[1]).split('&')[0])
     }
 
     else {
 
       setTableNo(TableNo)
-      let cafeName = decodeURI(((window.location.href).split('=')[1]).split('&')[0])
+      let cafeName = decodeURI(((window.location.href).split('=')[2]).split('&')[1])
+      let cafeId = ((window.location.href).split('=')[1]).split('&')[0]
       setCafeName(cafeName)
+      setCafeId(cafeId)
 
     }
 
@@ -69,7 +76,6 @@ export default function Orders() {
 
 
   useEffect(() => {
-
 
     if (orders !== undefined) {
 
@@ -138,7 +144,7 @@ export default function Orders() {
     const options = {
       key: "rzp_test_3E1BxGvOlZaNIf",
       currency: "INR",
-      amount: amount*100,
+      amount: amount * 100,
       name: "Cafe Managment System",
       description: "Thanks for purchasing",
       image:
@@ -147,7 +153,7 @@ export default function Orders() {
       handler: function (response) {
         console.log(response.razorpay_payment_id);
 
-        
+        saveTransactionOrder(response.razorpay_payment_id)
 
         window.location.href = '/paymentSuccess'
       },
@@ -159,6 +165,38 @@ export default function Orders() {
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
   };
+
+  function saveTransactionOrder(transactionId) {
+
+
+    var data = JSON.stringify({
+      "user": user.data.theUser._id,
+      "cafe": cafeId,
+      "transactionId": transactionId,
+      "isPaid": true,
+      "data": JSON.parse(orderRef.current),
+      "discount": "0",
+      "totalAmount": totalAmount
+    });
+
+    var config = {
+      method: 'post',
+      url: 'http://localhost:6969/order/addOrder',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  }
 
   return (
 
