@@ -9,6 +9,8 @@ import SearchBar from '../../Components/SearchBar/SearchBar'
 import './Orders.css'
 import { createRoot } from 'react-dom/client'
 import OrderList from '../../Components/OrderList/OrderList'
+import CreditCard from '../../Assets/Icons/CreditCard.svg'
+import FloatingNav from '../../Components/FloatingNav/FloatingNav'
 
 export default function Orders() {
 
@@ -93,12 +95,15 @@ export default function Orders() {
 
       let amount = 0
 
+      try{
+
 
       JSON.parse(orderRef.current).forEach(ele => {
         amount += ele.price
       })
 
       setTotalAmount(amount)
+    }catch(e){}
     }
 
 
@@ -132,6 +137,10 @@ export default function Orders() {
         <div className="total">
           <p>Total Amount</p>
           <p>{totalAmount} Rs/-</p>
+        </div>
+
+        <div  >
+          <FloatingNav text={'Pay'} icon={CreditCard}/>
         </div>
 
       </section>
