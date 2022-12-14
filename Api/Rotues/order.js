@@ -93,7 +93,7 @@ router.post('/getCurrentOrders', async (req, res) => {
                 if (OrderDetails.date === date && !OrderDetails.isComplete) {
 
                     if( time - 5 < (OrderDetails.time).split(':')[0] <= time ){
-                        currentOrders.push( { table : OrderDetails.table , time , data  } )
+                        currentOrders.push( { table : OrderDetails.table , time: OrderDetails.time , data : OrderDetails.data  } )
                     }
                 
                 }
@@ -102,6 +102,7 @@ router.post('/getCurrentOrders', async (req, res) => {
 
         }
 
+        
         res.json( currentOrders )
 
 
