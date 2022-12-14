@@ -5,31 +5,6 @@ const Cafe = require("../Models/Cafe")
 const verify = require('../verifyToken')
 const { Promise } = require("mongoose")
 
-const getOrders = (orders, date, time) => {
-
-    let ord = []
-
-    let promise = new Promise.all(
-
-        orders.map(async (orderId) => {
-
-            const OrderDetails = await Order.findById(orderId)
-
-            if (OrderDetails !== null) {
-
-                if (OrderDetails.date === date && !OrderDetails.isComplete) {
-                    ord[0] = 'Nice'
-                }
-
-            }
-
-        })
-    )
-
-
-
-}
-
 
 router.post('/addOrder', async (req, res) => {
 
@@ -118,7 +93,7 @@ router.post('/getCurrentOrders', async (req, res) => {
                 if (OrderDetails.date === date && !OrderDetails.isComplete) {
 
                     if( time - 5 < (OrderDetails.time).split(':')[0] <= time ){
-                        currentOrders.push( OrderDetails )
+                        currentOrders.push( { table : OrderDetails.table , time , data  } )
                     }
                 
                 }
@@ -127,7 +102,7 @@ router.post('/getCurrentOrders', async (req, res) => {
 
         }
 
-        console.log(currentOrders);
+        res.json( currentOrders )
 
 
     } catch (e) { }
