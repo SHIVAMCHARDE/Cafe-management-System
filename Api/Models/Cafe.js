@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 
 const CafeSchema = new mongoose.Schema({
+    
     cafeName : { type:String , required:true},
     subtitle : { type:String},
     rating : { type : mongoose.Types.Decimal128 },

@@ -3,7 +3,32 @@ const Order = require("../Models/Order")
 const User = require("../Models/User")
 const Cafe = require("../Models/Cafe")
 const verify = require('../verifyToken')
+const { Promise } = require("mongoose")
 
+const getOrders = (orders, date, time) => {
+
+    let ord = []
+
+    let promise = new Promise.all(
+
+        orders.map(async (orderId) => {
+
+            const OrderDetails = await Order.findById(orderId)
+
+            if (OrderDetails !== null) {
+
+                if (OrderDetails.date === date && !OrderDetails.isComplete) {
+                    ord[0] = 'Nice'
+                }
+
+            }
+
+        })
+    )
+
+
+
+}
 
 
 router.post('/addOrder', async (req, res) => {
@@ -13,9 +38,10 @@ router.post('/addOrder', async (req, res) => {
     const user = req.body.user
     const cafe = req.body.cafe
     const transactionId = req.body.transactionId
+    const table = req.body.table
     const date = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`
     const time = `${today.getHours()}:${today.getMinutes()}`
-    const isPaid = req.body.isPaid
+    const isComplete = req.body.isComplete
     const data = req.body.data
     const discount = req.body.discount
     const totalAmount = req.body.totalAmount
@@ -23,10 +49,11 @@ router.post('/addOrder', async (req, res) => {
     let newOrder = new Order({
         user,
         cafe,
+        table,
         transactionId,
         date,
         time,
-        isPaid,
+        isComplete,
         data,
         discount,
         totalAmount
@@ -66,5 +93,46 @@ router.post('/addOrder', async (req, res) => {
 
 })
 
+
+router.post('/getCurrentOrders', async (req, res) => {
+
+    const cafe = req.body.cafeId
+
+    let today = new Date()
+    let date = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`
+    let currentOrders = []
+
+    const time = today.getHours()
+
+    try {
+
+        const newCafe = await Cafe.findById(cafe)
+        const orders = newCafe.orders
+
+        for (let i = 0; i < orders.length; i++) {
+
+            const OrderDetails = await Order.findById(orders[i])
+
+            if (OrderDetails !== null) {
+
+                if (OrderDetails.date === date && !OrderDetails.isComplete) {
+
+                    if( time - 5 < (OrderDetails.time).split(':')[0] <= time ){
+                        currentOrders.push( OrderDetails )
+                    }
+                
+                }
+
+            }
+
+        }
+
+        console.log(currentOrders);
+
+
+    } catch (e) { }
+
+
+})
 
 module.exports = router

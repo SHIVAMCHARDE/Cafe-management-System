@@ -152,10 +152,9 @@ export default function Orders() {
 
       handler: function (response) {
         console.log(response.razorpay_payment_id);
-
         saveTransactionOrder(response.razorpay_payment_id)
-
         window.location.href = '/paymentSuccess'
+
       },
       prefill: {
         name: "Cafe Managment System",
@@ -168,12 +167,12 @@ export default function Orders() {
 
   function saveTransactionOrder(transactionId) {
 
-
     var data = JSON.stringify({
       "user": user.data.theUser._id,
       "cafe": cafeId,
       "transactionId": transactionId,
-      "isPaid": true,
+      "isComplete": false,
+      "table": tableNo,
       "data": JSON.parse(orderRef.current),
       "discount": "0",
       "totalAmount": totalAmount
