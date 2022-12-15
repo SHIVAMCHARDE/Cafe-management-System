@@ -42,6 +42,10 @@ function App() {
       console.log(data);
     });
 
+    socket.on("orderComplete", data => {
+      console.log(data);
+    });
+
   }, [])
 
 

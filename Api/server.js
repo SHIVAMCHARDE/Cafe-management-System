@@ -5,11 +5,49 @@ const dotenv = require("dotenv")
 const cookiePasrser = require('cookie-parser')
 const cors = require("cors");
 const http = require('http')
+const { MongoClient } = require('mongodb');
 
 const authRoute = require("../Api/Rotues/auth")
 const cafeRoute = require("../Api/Rotues/cafe")
 const menuRoute = require("../Api/Rotues/menu")
 const orderRoute = require("../Api/Rotues/order")
+
+const stream = require('stream');
+
+function closeChangeStream(timeInMs = 300000, changeStream) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("Closing the change stream");
+      changeStream.close();
+      resolve();
+    }, timeInMs)
+  })
+};
+
+async function monitorListingsUsingEventEmitter(client, timeInMs = 060000, pipeline = []) {
+
+  const collection = client.db("test").collection("orders");
+  const changeStream = collection.watch(pipeline);
+
+  changeStream.stream().pipe(
+    new stream.Writable({
+      objectMode: true,
+      write: function (doc, _, cb) {
+
+        console.log(doc);
+
+        io.on('connection', (socket) => {
+          socket.emit("orderComplete", {status : 200})
+        })
+
+        cb();
+      }
+    })
+  );
+
+  await closeChangeStream(timeInMs, changeStream);
+
+}
 
 dotenv.config();
 
@@ -26,7 +64,13 @@ app.use(function (req, res, next) {
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect(process.env.MONGO_URL).then(() => console.log("DB COnnection Succesful"));
+  await mongoose.connect(process.env.MONGO_URL).then(async () => {
+    const client = new MongoClient(process.env.MONGO_URL)
+    await client.connect()
+    
+    await monitorListingsUsingEventEmitter(client);
+    console.log("DB COnnection Succesful")
+  });
 }
 
 
@@ -49,8 +93,12 @@ const io = require('socket.io')(server, {
 
 
 io.on('connection', (socket) => {
-  socket.emit( "noice" , socket.id )
+  socket.emit("noice", socket.id)
 })
+
+
+
+
 
 server.listen(6969, () => {
   console.log("Backend Server is Running");

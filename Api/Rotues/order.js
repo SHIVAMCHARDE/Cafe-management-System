@@ -24,15 +24,8 @@ function getTimeInSec(time, date) {
 
 }
 
-function closeChangeStream(timeInMs = 60000, changeStream) {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            console.log("Closing the change stream");
-            changeStream.close();
-            resolve();
-        }, timeInMs)
-    })
-};
+
+
 
 router.post('/addOrder', async (req, res) => {
 
