@@ -8,7 +8,6 @@ const { Promise } = require("mongoose")
 
 function getTimeInSec( time , date ){
 
-    console.log(time)
     const d = new Date()
 
     let dateTime =  parseInt(date.split('-')[0])
@@ -20,7 +19,6 @@ function getTimeInSec( time , date ){
     
     
     const dateOfOrder = new Date( yearTime, monthTime , dateTime + 1, hours , min , sec ) ;
-    console.log(dateOfOrder)
     const timeInSec =  d.setTime(dateOfOrder.getTime())
     return timeInSec
 
@@ -114,7 +112,7 @@ router.post('/getCurrentOrders', async (req, res) => {
                 if (OrderDetails.date === date && !OrderDetails.isComplete) {
 
                     if( time - 5 < (OrderDetails.time).split(':')[0] <= time ){
-                        currentOrders.push( { table : OrderDetails.table , time : getTimeInSec(OrderDetails.time , OrderDetails.date) , data : OrderDetails.data  } )
+                        currentOrders.push( { id: OrderDetails._id, table : OrderDetails.table , time : getTimeInSec(OrderDetails.time , OrderDetails.date) , data : OrderDetails.data  } )
                     }
                 
                 }
@@ -129,6 +127,21 @@ router.post('/getCurrentOrders', async (req, res) => {
 
     } catch (e) { }
 
+
+})
+
+router.post('/completeOrder' , async(req,res)=>{
+
+    const orderId = req.body.orderId
+
+    try{
+
+        const newOrder = await Order.findByIdAndUpdate( orderId , { isComplete : true } )
+        res.json("Order Complete")
+
+    }catch(e){
+        console.log(e)
+    }
 
 })
 

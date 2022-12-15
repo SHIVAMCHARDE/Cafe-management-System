@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './ChefCard.css'
 import { useRef, useEffect, useState } from 'react'
 import { Timer, Time, TimerOptions } from 'timer-node';
+import axios from 'axios'
 
 export default function ChefCard({ data }) {
 
@@ -47,8 +48,28 @@ export default function ChefCard({ data }) {
         timerRoot.render(<>{currentTimer}</>)
 
     }, [currentTimer])
-    
 
+    function OrderComplete() {
+
+        var config = {
+            method: 'post',
+            url: `http://localhost:6969/order/completeOrder`,
+            headers: {},
+            data: { orderId : data.id }
+        };
+
+        axios(config)
+            .then(function (response) {
+
+                console.log(response.data);
+                
+            })
+
+            .catch(function (error) {
+                console.log(error);
+            });
+
+    }
 
     return (
         <>
@@ -61,7 +82,7 @@ export default function ChefCard({ data }) {
                 </div>
 
                 <div className="BtnServed">
-                    <button type='submit' className='PBtnServed'  >Order Complete</button>
+                    <button type='submit' className='PBtnServed' onClick={()=>{OrderComplete()}} >Order Complete</button>
                 </div>
 
             </div>
