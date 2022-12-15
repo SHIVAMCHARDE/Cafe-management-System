@@ -24,7 +24,7 @@ function closeChangeStream(timeInMs = 300000, changeStream) {
   })
 };
 
-async function monitorListingsUsingEventEmitter(client, timeInMs = 060000, pipeline = []) {
+async function monitorListingsUsingEventEmitter(client, timeInMs = 600000, pipeline = []) {
 
   const collection = client.db("test").collection("orders");
   const changeStream = collection.watch(pipeline);
