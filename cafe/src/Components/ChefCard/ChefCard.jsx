@@ -60,9 +60,9 @@ export default function ChefCard({ data }) {
 
         axios(config)
             .then(function (response) {
-
                 console.log(response.data);
-                
+                window. location. reload()
+
             })
 
             .catch(function (error) {
