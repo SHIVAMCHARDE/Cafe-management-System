@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 import useState from 'react-usestateref'
-import { setIsLogged } from '../../States/action-creators/index'
+
+import { setOrderComplete } from '../../States/action-creators/index'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { acitionCreators } from '../../States/index'
-import { useNavigate } from 'react-router-dom'
+
 import SearchBar from '../../Components/SearchBar/SearchBar'
 import './Orders.css'
 import { createRoot } from 'react-dom/client'
@@ -23,8 +24,7 @@ export default function Orders() {
   const orderContainer = useRef()
 
   const dispatch = useDispatch()
-  const { setIsLogged } = bindActionCreators(acitionCreators, dispatch)
-  const navigate = useNavigate()
+  const { setOrderComplete } = bindActionCreators(acitionCreators, dispatch)
 
   const user = useSelector(state => state.User)
 
@@ -153,7 +153,7 @@ export default function Orders() {
       handler: function (response) {
         console.log(response.razorpay_payment_id);
         saveTransactionOrder(response.razorpay_payment_id)
-        window.location.href = '/paymentSuccess'
+
 
       },
       prefill: {
@@ -189,7 +189,12 @@ export default function Orders() {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+
+        setOrderComplete(response.data)
+        window.location.href = '/paymentSuccess'
+
+
+
       })
       .catch(function (error) {
         console.log(error);

@@ -6,3 +6,12 @@ export const setIsLogged = (state) =>{
         })
     }
 }
+
+export const setOrderComplete = (state) =>{
+    return (dispatch)=>{
+        dispatch({
+            type:'ORDER',
+            payload:state
+        })
+    }
+}

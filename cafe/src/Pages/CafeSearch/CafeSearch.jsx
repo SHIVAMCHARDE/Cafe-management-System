@@ -12,7 +12,6 @@ const CafeSearch = () => {
 
     useEffect(() => {
 
-
         var config = {
             method: 'post',
             url: `http://localhost:6969/cafe/getCafes`,

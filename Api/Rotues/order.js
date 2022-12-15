@@ -3,27 +3,36 @@ const Order = require("../Models/Order")
 const User = require("../Models/User")
 const Cafe = require("../Models/Cafe")
 const verify = require('../verifyToken')
-const { Promise } = require("mongoose")
 
 
-function getTimeInSec( time , date ){
+function getTimeInSec(time, date) {
 
     const d = new Date()
 
-    let dateTime =  parseInt(date.split('-')[0])
+    let dateTime = parseInt(date.split('-')[0])
     let monthTime = parseInt(date.split('-')[1]) - 1
-    let yearTime =  parseInt(date.split('-')[2])
-    let hours  =  parseInt(time.split(':')[0])
-    let min =  parseInt(time.split(':')[1])
-    let sec =  parseInt(time.split(':')[2])
-    
-    
-    const dateOfOrder = new Date( yearTime, monthTime , dateTime + 1, hours , min , sec ) ;
-    const timeInSec =  d.setTime(dateOfOrder.getTime())
+    let yearTime = parseInt(date.split('-')[2])
+    let hours = parseInt(time.split(':')[0])
+    let min = parseInt(time.split(':')[1])
+    let sec = parseInt(time.split(':')[2])
+
+
+    const dateOfOrder = new Date(yearTime, monthTime, dateTime + 1, hours, min, sec);
+    const timeInSec = d.setTime(dateOfOrder.getTime())
     return timeInSec
 
 
 }
+
+function closeChangeStream(timeInMs = 60000, changeStream) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            console.log("Closing the change stream");
+            changeStream.close();
+            resolve();
+        }, timeInMs)
+    })
+};
 
 router.post('/addOrder', async (req, res) => {
 
@@ -76,7 +85,7 @@ router.post('/addOrder', async (req, res) => {
         })
 
 
-        res.json('Order Added Successfully')
+        res.json({ isComplete: false, data: newOrder, orderId: newOrder._id })
 
     } catch (e) {
 
@@ -111,18 +120,18 @@ router.post('/getCurrentOrders', async (req, res) => {
 
                 if (OrderDetails.date === date && !OrderDetails.isComplete) {
 
-                    if( time - 5 < (OrderDetails.time).split(':')[0] <= time ){
-                        currentOrders.push( { id: OrderDetails._id, table : OrderDetails.table , time : getTimeInSec(OrderDetails.time , OrderDetails.date) , data : OrderDetails.data  } )
+                    if (time - 5 < (OrderDetails.time).split(':')[0] <= time) {
+                        currentOrders.push({ id: OrderDetails._id, table: OrderDetails.table, time: getTimeInSec(OrderDetails.time, OrderDetails.date), data: OrderDetails.data })
                     }
-                
+
                 }
 
             }
 
         }
 
-        
-        res.json( currentOrders )
+
+        res.json(currentOrders)
 
 
     } catch (e) { }
@@ -130,19 +139,21 @@ router.post('/getCurrentOrders', async (req, res) => {
 
 })
 
-router.post('/completeOrder' , async(req,res)=>{
+router.post('/completeOrder', async (req, res) => {
 
     const orderId = req.body.orderId
 
-    try{
+    try {
 
-        const newOrder = await Order.findByIdAndUpdate( orderId , { isComplete : true } )
+        const newOrder = await Order.findByIdAndUpdate(orderId, { isComplete: true })
         res.json("Order Complete")
 
-    }catch(e){
+    } catch (e) {
         console.log(e)
     }
 
 })
+
+
 
 module.exports = router
