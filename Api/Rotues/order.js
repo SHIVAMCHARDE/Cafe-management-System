@@ -6,6 +6,27 @@ const verify = require('../verifyToken')
 const { Promise } = require("mongoose")
 
 
+function getTimeInSec( time , date ){
+
+    console.log(time)
+    const d = new Date()
+
+    let dateTime =  parseInt(date.split('-')[0])
+    let monthTime = parseInt(date.split('-')[1]) - 1
+    let yearTime =  parseInt(date.split('-')[2])
+    let hours  =  parseInt(time.split(':')[0])
+    let min =  parseInt(time.split(':')[1])
+    let sec =  parseInt(time.split(':')[2])
+    
+    
+    const dateOfOrder = new Date( yearTime, monthTime , dateTime + 1, hours , min , sec ) ;
+    console.log(dateOfOrder)
+    const timeInSec =  d.setTime(dateOfOrder.getTime())
+    return timeInSec
+
+
+}
+
 router.post('/addOrder', async (req, res) => {
 
     const today = new Date()
@@ -15,7 +36,7 @@ router.post('/addOrder', async (req, res) => {
     const transactionId = req.body.transactionId
     const table = req.body.table
     const date = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`
-    const time = `${today.getHours()}:${today.getMinutes()}`
+    const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`
     const isComplete = req.body.isComplete
     const data = req.body.data
     const discount = req.body.discount
@@ -93,7 +114,7 @@ router.post('/getCurrentOrders', async (req, res) => {
                 if (OrderDetails.date === date && !OrderDetails.isComplete) {
 
                     if( time - 5 < (OrderDetails.time).split(':')[0] <= time ){
-                        currentOrders.push( { table : OrderDetails.table , time: OrderDetails.time , data : OrderDetails.data  } )
+                        currentOrders.push( { table : OrderDetails.table , time : getTimeInSec(OrderDetails.time , OrderDetails.date) , data : OrderDetails.data  } )
                     }
                 
                 }

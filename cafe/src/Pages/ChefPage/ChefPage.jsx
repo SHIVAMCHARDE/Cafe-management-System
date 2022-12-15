@@ -20,12 +20,11 @@ export default function ChefPage() {
             method: 'post',
             url: `http://localhost:6969/order/getCurrentOrders`,
             headers: {},
-            data:{cafeId}
+            data: { cafeId }
         };
 
         axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
                 setOrderInfo(response.data)
             })
             .catch(function (error) {
@@ -39,7 +38,16 @@ export default function ChefPage() {
         let cards = []
         const root = createRoot(cardContainer.current)
 
-        console.log(orderInfo);
+        try {
+
+            console.log(orderInfo);
+            orderInfo.forEach(element => {
+                cards.push(<ChefCard key={element._id} data={element} />)
+            });
+
+            root.render(cards)
+        }
+        catch (e) { }
 
 
     }, [orderInfo])
@@ -51,8 +59,6 @@ export default function ChefPage() {
                 <p>Orders Check List</p>
             </div>
             <div className='ChefPageCon' ref={cardContainer}>
-
-                <ChefCard />
 
             </div>
         </div>

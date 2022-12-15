@@ -10,6 +10,7 @@
     animation: gradient 5s ease infinite;
     padding : 16px 20px;
     border-radius: 16px;
+    margin-bottom: 24px;
 }
 
 @keyframes gradient {
@@ -49,7 +50,7 @@
     color: #3E3E3E;
     font-weight: 740;
     font-size: 20px;
-    margin-bottom: 8px;
+    margin-bottom: -12px;
 }
 .PItemQty{
     margin: 0px;
@@ -60,6 +61,7 @@
     font-weight: 700;
     font-size: 24px;
     border-radius: 100px;
+    margin: 10px 0px;
 }
 .PBtnServed{
     margin-top: 16px;
