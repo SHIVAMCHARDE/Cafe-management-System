@@ -1,0 +1,66 @@
+.greet>p:first-child {
+
+    font-family: 'Mukta';
+    font-weight: 500;
+    font-size: 22px;
+    text-align: center;
+    color: #7879F1;
+    margin: 0%;
+    margin-top: 42px;
+
+}
+
+.greet>p:nth-child(2),
+.feedback>p {
+    font-family: 'Mukta';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    text-align: center;
+    color: #A5A6F6;
+    margin: 0%;
+}
+
+.feedback {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 80px;
+}
+
+
+.feedback>p {
+    text-align: center;
+    font-weight: 600;
+    font-size: 24px;
+    color: rgba(56, 56, 56, 1);
+    margin-bottom: 8px;
+}
+
+
+.feedback>button {
+    display: block;
+    outline: none;
+    border: none;
+    color: #ffffff;
+    font-size: 14px;
+    background-color: #A5A6F6;
+    padding: 12px 24px;
+    border-radius: 4px;
+    margin-top: 60px;
+    cursor: pointer;
+}
+
+.dishFeedback{
+    margin-top: 24px;
+}
+
+.dishFeedback>p {
+
+    font-family: 'Mukta';
+    font-weight: 700;
+    font-size: 16px;
+    color: #7879F1;
+
+}

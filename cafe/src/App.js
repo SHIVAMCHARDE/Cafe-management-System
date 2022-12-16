@@ -18,6 +18,7 @@ import PaymentSuceessPage from './Pages/PaymentSuceessPage/PaymentSuceessPage';
 import ChefPage from './Pages/ChefPage/ChefPage';
 import socketIOClient from "socket.io-client";
 import { useEffect } from 'react';
+import FeedBack from './Pages/Feedback/FeedBack';
 
 function App() {
 
@@ -38,12 +39,10 @@ function App() {
       console.log(data);
     });
 
-    socket.on("noice", data => {
-      console.log(data);
-    });
-
     socket.on("orderComplete", data => {
-      console.log(data);
+      if (data.status === 200) {
+        window.location.href = '/feedback'
+      }
     });
 
   }, [])
@@ -71,8 +70,10 @@ function App() {
         <Route exact path='/CafeForm' element={<CafeForm />} />
 
         <Route exact path='/paymentSuccess' element={<PaymentSuceessPage />} />
+        <Route exact path='/feedback' element={<FeedBack />} />
 
         <Route exact path='/ChefPage' element={<ChefPage />} />
+        
 
       </Routes>
     </>

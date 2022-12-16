@@ -190,6 +190,7 @@ export default function Orders() {
     axios(config)
       .then(function (response) {
 
+        console.log(response.data);
         setOrderComplete(response.data)
         window.location.href = '/paymentSuccess'
 

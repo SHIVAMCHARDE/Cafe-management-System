@@ -125,4 +125,21 @@ router.post('/getDish', async (req, res) => {
 
 })
 
+router.post('/updateRating', async (req, res) => {
+
+    const data = req.body.data
+
+    (data).forEach(async (element) => {
+
+        const newDish = Dish.findById(element.id)
+        let avgRating = newDish.avgRating ? newDish.avgRating : 0
+
+        await Dish.updateOne({ _id: element.id }, { $set: { avgRating: parseFloat(avgRating + element.rating) / parseFloat(2) } })
+
+        res.json('Update Completede')
+
+    });
+
+})
+
 module.exports = router
