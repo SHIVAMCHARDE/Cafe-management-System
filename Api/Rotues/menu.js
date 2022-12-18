@@ -161,7 +161,6 @@ router.post('/updateRating', async (req, res) => {
 
 router.post('/getDishDetails', async (req, res) => {
 
-    console.log("Report Called")
 
     const cafeId = req.body.cafeId
 
@@ -253,7 +252,6 @@ router.post('/getDishDetails', async (req, res) => {
 
     })
 
-    console.log("Report Send")
     res.json( { cafeName : cafe.cafeName , dishStats , MonthlyOrderStats } )
 
 
