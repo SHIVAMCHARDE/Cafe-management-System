@@ -3,6 +3,7 @@ const Dish = require('../Models/Dish')
 const verify = require('../verifyToken')
 const multer = require('multer');
 const Cafe = require("../Models/Cafe");
+const Order = require('../Models/Order')
 
 const storage = multer.diskStorage({ // notice you are calling the multer.diskStorage() method here, not multer()
     destination: function (req, file, cb) {
@@ -14,6 +15,22 @@ const storage = multer.diskStorage({ // notice you are calling the multer.diskSt
 });
 
 const upload = multer({ storage: storage })
+
+
+const getXDays = (noOfDays = 0) => {
+
+    const d = new Date()
+    d.setDate(d.getDate() - noOfDays)
+    return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate()
+
+}
+
+const getCorrectDateFormat = (date) => {
+
+    const correctDateFormat = date.split('-')
+    return correctDateFormat['2'] + "-" + correctDateFormat['1'] + "-" + correctDateFormat['0']
+
+}
 
 
 router.post('/addNewDish', upload.single('image'), async (req, res) => {
@@ -129,16 +146,116 @@ router.post('/updateRating', async (req, res) => {
 
     const data = req.body.data
 
-    (data).forEach(async (element) => {
+        (data).forEach(async (element) => {
 
-        const newDish = Dish.findById(element.id)
-        let avgRating = newDish.avgRating ? newDish.avgRating : 0
+            const newDish = Dish.findById(element.id)
+            let avgRating = newDish.avgRating ? newDish.avgRating : 0
 
-        await Dish.updateOne({ _id: element.id }, { $set: { avgRating: parseFloat(avgRating + element.rating) / parseFloat(2) } })
+            await Dish.updateOne({ _id: element.id }, { $set: { avgRating: parseFloat(avgRating + element.rating) / parseFloat(2) } })
 
-        res.json('Update Completede')
+            res.json('Update Completede')
 
-    });
+        });
+
+})
+
+router.post('/getDishDetails', async (req, res) => {
+
+    console.log("Report Called")
+
+    const cafeId = req.body.cafeId
+
+    const cafe = await Cafe.findById(cafeId)
+    const dishesId = cafe.dishes
+    const ordersId = cafe.orders
+
+    const dishes = []
+    const orders = []
+
+    const dishStats = {}
+
+    const stats = {
+        today: [],
+        Days15: [],
+        Weeks4: [],
+        Weeks24: [],
+        Weeks52: []
+    }
+
+    const MonthlyOrderStats = {}
+
+    for (let i = 0; i < dishesId.length; i++) {
+        const newDish = await Dish.findById(dishesId[i])
+        dishes.push(newDish)
+        dishStats[newDish.dishName] = [{ today: 0 }, { Days15: 0 }, { Weeks4: 0 }, { Weeks24: 0 }, { Weeks52: 0 },]
+
+    }
+
+
+    for (let i = 0; i < ordersId.length; i++) {
+        const newOrder = await Order.findById(ordersId[i])
+
+        try {
+
+
+            if (JSON.stringify(new Date(getCorrectDateFormat(newOrder.date))) == JSON.stringify(new Date(getXDays()))) {
+
+                stats['today'].push(newOrder)
+            }
+
+            if (new Date(getCorrectDateFormat(newOrder.date)) >= new Date(getXDays(15))) {
+                stats['Days15'].push(newOrder)
+            }
+
+            if (new Date(getCorrectDateFormat(newOrder.date)) >= new Date(getXDays(28))) {
+                stats['Weeks4'].push(newOrder)
+            }
+
+            if (new Date(getCorrectDateFormat(newOrder.date)) >= new Date(getXDays(168))) {
+                stats['Weeks24'].push(newOrder)
+            }
+
+            if (new Date(getCorrectDateFormat(newOrder.date)) >= new Date(getXDays(364))) {
+                stats['Weeks52'].push(newOrder)
+            }
+
+
+        } catch (e) { }
+
+    }
+
+
+    for (const key in stats) {
+
+        (stats[key]).forEach((ele) => {
+            (ele.data).forEach((dish) => {
+                (dishStats[dish.name]).forEach((e) => {
+                    for (const dishkey in e) {
+                        if (dishkey === key) {
+                            e[dishkey] = e[dishkey] + dish.qty
+                        }
+                    }
+                })
+            })
+        })
+
+    }
+
+
+    stats['Weeks4'].forEach((ord) => {
+
+        if (MonthlyOrderStats[ord.date]) {
+            MonthlyOrderStats[ord.date] = MonthlyOrderStats[ord.date] + 1
+        }
+        else {
+            MonthlyOrderStats[ord.date] = 1
+        }
+
+    })
+
+    console.log("Report Send")
+    res.json( { cafeName : cafe.cafeName , dishStats , MonthlyOrderStats } )
+
 
 })
 

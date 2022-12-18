@@ -19,6 +19,7 @@ import ChefPage from './Pages/ChefPage/ChefPage';
 import socketIOClient, { io } from "socket.io-client";
 import { useEffect, useState } from 'react';
 import FeedBack from './Pages/Feedback/FeedBack';
+import Report from './Pages/Report/Report';
 
 function App() {
 
@@ -95,6 +96,7 @@ function App() {
 
         <Route exact path='/ChefPage' element={<ChefPage />} />
 
+        <Route exact path='/report' element={<Report />} />
 
       </Routes>
     </>
