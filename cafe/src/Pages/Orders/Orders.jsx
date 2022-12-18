@@ -195,7 +195,6 @@ export default function Orders() {
         window.location.href = '/paymentSuccess'
 
 
-
       })
       .catch(function (error) {
         console.log(error);

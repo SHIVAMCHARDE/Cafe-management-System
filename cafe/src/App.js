@@ -16,22 +16,27 @@ import CafeSearch from './Pages/CafeSearch/CafeSearch';
 import CafeForm from './Pages/CafeForm/CafeForm';
 import PaymentSuceessPage from './Pages/PaymentSuceessPage/PaymentSuceessPage';
 import ChefPage from './Pages/ChefPage/ChefPage';
-import socketIOClient from "socket.io-client";
-import { useEffect } from 'react';
+import socketIOClient, { io } from "socket.io-client";
+import { useEffect, useState } from 'react';
 import FeedBack from './Pages/Feedback/FeedBack';
 
 function App() {
 
   const dispatch = useDispatch()
   const { setIsLogged } = bindActionCreators(acitionCreators, dispatch)
+  const { setOrderComplete } = bindActionCreators(acitionCreators, dispatch)
   const navigate = useNavigate()
   const ENDPOINT = "http://localhost:6969";
   const socket = socketIOClient(ENDPOINT, {
     withCredentials: true
   });
 
+  const [isOrderComplete, setisOrderComplete] = useState(false)
+  const [isSent, setIsSent] = useState(false)
+
 
   const user = useSelector(state => state.User)
+  const Order = useSelector(state => state.Order)
 
   useEffect(() => {
 
@@ -40,14 +45,30 @@ function App() {
     });
 
     socket.on("orderComplete", data => {
+
       if (data.status === 200) {
-        window.location.href = '/feedback'
+
+        setisOrderComplete(true)
+        navigate(`/feedback?id=${Order.cafe}`)
       }
-    });
+
+    })
 
   }, [])
 
+  useEffect(() => {
 
+    if (isOrderComplete) {
+
+      setOrderComplete({
+        isComplete: true,
+        data: Order.data,
+        orderId: Order.orderId
+      })
+
+    }
+
+  }, [isOrderComplete])
 
 
 
@@ -55,7 +76,7 @@ function App() {
     <>
       <Routes>
 
-        <Route exact path='/' element={user.isAuthenticated ? <CafeSearch /> : <Login />} /> :
+        <Route exact path='/' element={user.isAuthenticated ? <CafeSearch /> : <Login />} />
 
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/register' element={<Registration />} />
@@ -73,7 +94,7 @@ function App() {
         <Route exact path='/feedback' element={<FeedBack />} />
 
         <Route exact path='/ChefPage' element={<ChefPage />} />
-        
+
 
       </Routes>
     </>

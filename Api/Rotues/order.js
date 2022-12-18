@@ -24,9 +24,6 @@ function getTimeInSec(time, date) {
 
 }
 
-
-
-
 router.post('/addOrder', async (req, res) => {
 
     const today = new Date()

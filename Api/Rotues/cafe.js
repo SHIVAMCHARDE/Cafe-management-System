@@ -105,4 +105,24 @@ router.post('/getCafes', async (req, res) => {
 
 })
 
+
+router.post('/updateRating', async (req, res) => {
+
+    const ratedata = req.body.data
+
+    console.log(ratedata)
+
+    data.forEach(async (element) => {
+
+        const newCafe = Cafe.findById(element.id)
+        let avgRating = newCafe.rating ? newCafe.rating : 0
+
+        await Cafe.updateOne({ _id: element.id }, { $set: { rating: parseFloat(avgRating + element.rating) / parseFloat(2) } })
+
+        res.json('Update Completede')
+
+    });
+
+})
+
 module.exports = router

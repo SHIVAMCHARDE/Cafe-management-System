@@ -14,17 +14,9 @@ const orderRoute = require("../Api/Rotues/order")
 
 const stream = require('stream');
 
-function closeChangeStream(timeInMs = 300000, changeStream) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      console.log("Closing the change stream");
-      changeStream.close();
-      resolve();
-    }, timeInMs)
-  })
-};
 
-async function monitorListingsUsingEventEmitter(client, timeInMs = 600000, pipeline = []) {
+
+async function monitorListingsUsingEventEmitter(client, pipeline = []) {
 
   const collection = client.db("test").collection("orders");
   const changeStream = collection.watch(pipeline);
@@ -34,18 +26,21 @@ async function monitorListingsUsingEventEmitter(client, timeInMs = 600000, pipel
       objectMode: true,
       write: function (doc, _, cb) {
 
-        console.log(doc);
 
-        io.on('connection', (socket) => {
-          socket.emit("orderComplete", {status : 200})
-        })
+
+        if (doc.operationType === 'update') {
+
+          io.on('connection', (socket) => {
+            socket.emit("orderComplete", { status: 200 })
+          })
+
+        }
 
         cb();
       }
     })
   );
 
-  await closeChangeStream(timeInMs, changeStream);
 
 }
 
@@ -67,8 +62,16 @@ async function main() {
   await mongoose.connect(process.env.MONGO_URL).then(async () => {
     const client = new MongoClient(process.env.MONGO_URL)
     await client.connect()
-    
-    await monitorListingsUsingEventEmitter(client);
+
+    const pipeline = [
+      {
+        '$match': {
+          'operationType': 'update'
+        },
+      }
+    ];
+
+    await monitorListingsUsingEventEmitter(client, pipeline);
     console.log("DB COnnection Succesful")
   });
 }
@@ -93,11 +96,12 @@ const io = require('socket.io')(server, {
 
 
 io.on('connection', (socket) => {
-  socket.emit("noice", socket.id)
+  console.log(socket.id + " Joined")
+  io.removeAllListeners();
+  socket.on('disconnect', function () {
+    console.log("disconnected");
+  });
 })
-
-
-
 
 
 server.listen(6969, () => {
